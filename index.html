@@ -15,7 +15,7 @@
             text-align: center;
             padding: 20px;
             margin: 0;
-            max-width: 1000px; /* Increased max-width */
+            max-width: 1000px;
             margin: 0 auto;
         }
         a {
@@ -37,13 +37,26 @@
             font-size: 1.0em;
             line-height: 1.8;
             margin: 1em 0;
-            white-space: nowrap; /* Prevent line breaks */
         }
         p a {
             display: inline-block;
             margin: 0 10px;
         }
+        .no-wrap {
+            white-space: nowrap; /* Prevent line breaks */
+        }
         @media (max-width: 600px) {
+            body {
+                max-width: 90%; /* Adjust body width for mobile */
+                padding: 10px; /* Adjust padding for mobile */
+            }
+            p {
+                font-size: 0.9em; /* Adjust font size for mobile */
+                line-height: 1.5; /* Adjust line height for mobile */
+            }
+            .no-wrap {
+                white-space: normal; /* Allow line breaks on narrow screens */
+            }
             p.social-links a {
                 font-size: 0.8em;
                 margin: 0 5px;
@@ -56,8 +69,8 @@
     <p>
         🧠 I love nut butters and data.<br><br>
         🔭 I'm currently building <a href="https://2050-materials.com/" target="_blank">2050 Materials</a><br>
-        🌱 And I'm also learning Design | AI Engineering | Fermentation cooking<br><br>
-        When not building something, I usually ride bikes and lift weights.<br>
+        <span class="no-wrap">🌱 And I'm also learning Design | AI Engineering | Fermentation cooking</span><br><br>
+        <span class="no-wrap">When not building something, I usually ride bikes and lift weights.</span><br>
     </p>
     <p class="social-links">
         <a href="https://github.com/phanosh" target="_blank">github</a> | <a href="https://www.linkedin.com/in/phanosha/" target="_blank">linkedin</a> | <a href="https://twitter.com/phanosha" target="_blank">X</a> | <a href="https://medium.com/@hadjikyriakou.phanos" target="_blank">blog</a>
