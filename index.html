@@ -39,7 +39,14 @@
             margin: 1em 0; /* Increased margin for spacing */
         }
         p a {
+            display: inline-block; /* Ensure links are inline-block for proper spacing */
             margin: 0 10px; /* Space between links */
+        }
+        @media (max-width: 600px) {
+            p.social-links a {
+                font-size: 0.9em; /* Smaller font size for mobile */
+                margin: 0 5px; /* Reduced margin for mobile */
+            }
         }
     </style>
 </head>
@@ -51,7 +58,7 @@
         🌱 And I'm also learning Design | AI Engineering | Fermentation cooking<br><br>
         When not building something, I usually ride bikes and lift weights.<br>
     </p>
-    <p>
+    <p class="social-links">
         <a href="https://github.com/phanosh" target="_blank">github</a> | <a href="https://www.linkedin.com/in/phanosha/" target="_blank">linkedin</a> | <a href="https://twitter.com/phanosha" target="_blank">X</a> | <a href="https://medium.com/@hadjikyriakou.phanos" target="_blank">blog</a>
     </p>
 </body>
