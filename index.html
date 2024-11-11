@@ -5,18 +5,58 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900&display=swap" rel="stylesheet">
-    <title>Oh, almond!</title>
+    <title>Phanos Ha</title>
     <link rel="icon" href="favicon.png" type="image/x-icon">
     <style>
+        a.card__link {
+            text-decoration: none; /* Remove default underline */
+        }
+
+        /* Add hover effect and pointer cursor */
+        a.card__link:hover .card__button {
+            text-decoration: underline; /* Underline the text when hovering */
+            cursor: pointer; /* Show pointer icon */
+        }
+
+        /* Keep button styles consistent */
+        .card__button {
+            padding: 10px 20px;
+            margin: 10px 5px; /* Added margin to separate buttons */
+            border-radius: 8px;
+            background: #777;
+            border: none;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            display: inline-block; /* Make sure button takes inline space inside <a> */
+        }
+
+        .card__image {
+            width: 100%; /* Ensures the image fills the card width */
+            height: auto; /* Maintain the aspect ratio of the image */
+            margin-bottom: 0px; /* Space below the image before content */
+            object-fit: cover; /* Ensures the image covers the container neatly */
+        }
+
+        .card__button.secondary {
+            background: transparent;
+            color: #777;
+            border: 1px solid #777;
+        }
         body {
             font-family: "Roboto Mono", "BAG Regular", "Inter", sans-serif;
             color: #333333;
             background-color: #f8f8f8;
             text-align: center;
             padding: 20px;
-            margin: 0;
+            margin: 10;
             max-width: 1000px;
             margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
         }
         a {
             color: black;
@@ -75,5 +115,272 @@
     <p class="social-links">
         <a href="https://github.com/phanosh" target="_blank">github</a> | <a href="https://www.linkedin.com/in/phanosha/" target="_blank">linkedin</a> | <a href="https://twitter.com/phanosha" target="_blank">X</a> | <a href="https://medium.com/@hadjikyriakou.phanos" target="_blank">blog</a>
     </p>
+    <p>
+    <button id="projects-toggle-button" class="btn cube" style="margin: 0 auto;">
+        <div class="bg-top"><div class="bg-inner"></div></div>
+        <div class="bg"><div class="bg-inner"></div></div>
+        <div class="bg-right"><div class="bg-inner"></div></div>
+        <div class="text">See projects</div>
+    </button>
+    <div id="projects-content" style="margin-top: 20px; display: none;"></div>
+
+
+    <style>
+        /* Button Styles */
+        .btn {
+          display: block;
+          padding: 0.7em 1em;
+          background: transparent;
+          outline: none;
+          border: 0;
+          color: #d4af37;
+          letter-spacing: 0.1em;
+          font-family: monospace;
+          font-size: 17px;
+          font-weight: bold;
+          cursor: pointer;
+          z-index: 1;
+        }
+        .cube {
+          position: relative;
+          transition: all 0.5s;
+        }
+        .cube .bg-top {
+          position: absolute;
+          height: 10px;
+          background: #d4af37;
+          bottom: 100%;
+          left: 5px;
+          right: -5px;
+          transform: skew(-45deg, 0);
+          margin: 0;
+          transition: all 0.4s;
+        }
+        .cube .bg {
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          top: 0;
+          right: 0;
+          background: #d4af37;
+          transition: all 0.4s;
+        }
+        .cube .bg-right {
+          position: absolute;
+          background: #d4af37;
+          top: -5px;
+          z-index: 0;
+          bottom: 5px;
+          width: 10px;
+          left: 100%;
+          transform: skew(0, -45deg);
+          transition: all 0.4s;
+        }
+        .cube .bg-inner {
+          background: #28282d;
+          position: absolute;
+          left: 2px;
+          right: 2px;
+          top: 2px;
+          bottom: 2px;
+        }
+        .cube .text {
+          position: relative;
+          transition: all 0.4s;
+        }
+        .cube:hover .bg-inner {
+          background: #d4af37;
+        }
+        .cube:hover .text {
+          color: #28282d;
+        }
+        .cube:hover .bg-right,
+        .cube:hover .bg,
+        .cube:hover .bg-top {
+          background: #28282d;
+        }
+        .cube:active {
+          z-index: 9999;
+          animation: bounce 0.1s linear;
+        }
+        @keyframes bounce {
+          50% { transform: scale(0.9); }
+        }
+        #projects-content {
+            display: flex;
+            flex-wrap: wrap; /* Allow content to wrap to the next row */
+            justify-content: center; /* Center the cards horizontally */
+            gap: 20px; /* Space between cards */
+        }
+
+        /* Card Styles */
+        .card {
+            box-sizing: border-box; /* Ensure padding and border are included in the width calculation */
+            position: relative;
+            width: 350px;
+            background-color: #f2f2f2;
+            border-radius: 10px;
+            aspect-ratio: 16/9;
+            justify-content: center;
+            perspective: 1000px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px; /* Add padding for spacing inside the card */
+            margin: 20px; /* Add margin for spacing between cards */
+            outline: 2px solid #F9E400; /* Add yellow outline to card */
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Light shadow to lift the cards visually */
+            transition: all 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .card svg {
+          width: 48px;
+          fill: #333;
+          transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .card__content {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          padding: 20px;
+          box-sizing: border-box;
+          background-color: #f2f2f2;
+          transform: rotateX(-90deg);
+          transform-origin: bottom;
+          transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .card:hover .card__content {
+          transform: rotateX(0deg);
+        }
+        .card__title {
+          margin: 0;
+          font-size: 20px;
+          color: #333;
+          font-weight: 700;
+        }
+        .card:hover svg {
+          scale: 0;
+        }
+        .card__description {
+          margin: 10px 0 10px;
+          font-size: 12px;
+          color: #777;
+          line-height: 1.4;
+        }
+        .card__button {
+          padding: 15px;
+          border-radius: 8px;
+          background: #777;
+          border: none;
+          color: white;
+        }
+        .secondary {
+          background: transparent;
+          color: #777;
+          border: 1px solid #777;
+        }
+    </style>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const button = document.getElementById("projects-toggle-button");
+            const content = document.getElementById("projects-content");
+
+            // Set the initial button text
+            button.querySelector(".text").textContent = "See projects";
+
+            // Project HTML content
+            const projectHTML = `
+                    <div class="card">
+                    <img src="imgs/2050materials.png" alt="2050Materials" class="card__image">
+                    <div class="card__content">
+                        <p class="card__title">2050 Materials</p>
+                        <p class="card__description">Giving AEC data the framework & integration it deserves.</p>
+                        <div class="card__buttons">
+                            <a href="https://2050-materials.com" target="_blank" class="card__link">
+                                <button class="card__button">Website</button>
+                            </a>
+                            <a href="https://docs.2050-materials.com" target="_blank" class="card__link">
+                                <button class="card__button secondary">Docs</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="imgs/climate_kpis.png" alt="Climate KPIs" class="card__image">
+                    <div class="card__content">
+                        <p class="card__title">Climate KPIs</p>
+                        <p class="card__description">Find the right climate KPI in any industry, to promote progress, not .</p>
+                        <div class="card__buttons">
+                            <a href="https://phanosha.com/climate-kpis/" target="_blank" class="card__link">
+                                <button class="card__button">Live Demo</button>
+                            </a>
+                            <a href="https://github.com/phanosh/climate-kpis" target="_blank" class="card__link">
+                                <button class="card__button secondary">Source Code</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="imgs/strength.png" alt="Climate KPIs" class="card__image">
+                    <div class="card__content">
+                        <p class="card__title">Strength Benchmarking</p>
+                        <p class="card__description">A project to easily benchmark your strength based on basic lifts and global data.</p>
+                        <div class="card__buttons">
+                            <a href="https://phanosha.com/gainsculator/" target="_blank" class="card__link">
+                                <button class="card__button">Live Demo</button>
+                            </a>
+                            <a href="https://github.com/phanosh/gainsculator" target="_blank" class="card__link">
+                                <button class="card__button secondary">Source Code</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="imgs/reverse_lca.png" alt="reverse_lca" class="card__image">
+                    <div class="card__content">
+                        <p class="card__title">Reverse LCA</p>
+                        <p class="card__description">A tool developed with 2050 Materials to break down embodied carbon targets to actions.</p>
+                        <div class="card__buttons">
+                            <a href="https://climatetargetstoolapp-fvi2zffbgfxegq7ydtdgjz.streamlit.app/" target="_blank" class="card__link">
+                                <button class="card__button">Live Demo</button>
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="imgs/white-logo.png" alt="white_logo" class="card__image">
+                    <div class="card__content">
+                        <p class="card__title">Logo Color Change</p>
+                        <p class="card__description">A simple, drag-and-drop website to transform any logo to white. Useful when working on slides with dark backgrounds.</p>
+                        <div class="card__buttons">
+                            <a href="https://phanosha.com/logo-color-change/" target="_blank" class="card__link">
+                                <button class="card__button">Live Demo</button>
+                            </a>
+                            <a href="https://github.com/phanosh/logo-color-change" target="_blank" class="card__link">
+                                <button class="card__button secondary">Source Code</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            button.addEventListener("click", function() {
+                if (content.style.display === "none") {
+                    content.style.display = "flex";
+                    content.innerHTML = projectHTML;
+                    button.querySelector(".text").textContent = "Hide projects";
+                } else {
+                    content.style.display = "none";
+                    content.innerHTML = ""; // Clear the content to prevent keeping it in memory
+                    button.querySelector(".text").textContent = "See projects";
+                }
+            });
+        });
+    </script>
 </body>
 </html>
