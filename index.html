@@ -1,554 +1,745 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900&display=swap" rel="stylesheet">
-    <title>Phanos Ha</title>
-    <link rel="icon" href="favicon.png" type="image/x-icon">
-    <style>
-        a.card__link {
-            text-decoration: none; /* Remove default underline */
-        }
-
-        /* Add hover effect and pointer cursor */
-        a.card__link:hover .card__button {
-            text-decoration: underline; /* Underline the text when hovering */
-            cursor: pointer; /* Show pointer icon */
-        }
-
-        /* Keep button styles consistent */
-        .card__button {
-            padding: 10px 20px;
-            margin: 10px 5px; /* Added margin to separate buttons */
-            border-radius: 8px;
-            background: #777;
-            border: none;
-            color: white;
-            font-size: 14px;
-            font-weight: bold;
-            display: inline-block; /* Make sure button takes inline space inside <a> */
-        }
-
-        .card__image {
-            width: 100%; /* Ensures the image fills the card width */
-            height: auto; /* Maintain the aspect ratio of the image */
-            margin-bottom: 0px; /* Space below the image before content */
-            object-fit: cover; /* Ensures the image covers the container neatly */
-        }
-
-        .card__button.secondary {
-            background: transparent;
-            color: #777;
-            border: 1px solid #777;
-        }
-        body {
-            font-family: "Roboto Mono", "BAG Regular", "Inter", sans-serif;
-            color: #333333;
-            background-color: #f8f8f8;
-            text-align: center;
-            padding: 20px;
-            margin: 10;
-            max-width: 1000px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-        a {
-            color: black;
-            text-decoration: underline;
-        }
-        a:hover {
-            color: #F9E400;
-        }
-        ::selection {
-            background: #F9E400;
-            color: #7C00FE;
-        }
-        h1 {
-            font-size: 2.0em;
-            margin-bottom: 0.5em;
-        }
-        p {
-            font-size: 1.0em;
-            line-height: 1.8;
-            margin: 1em 0;
-        }
-        p a {
-            display: inline-block;
-            margin: 0 10px;
-        }
-        .no-wrap {
-            white-space: nowrap; /* Prevent line breaks */
-        }
-        @media (max-width: 600px) {
-            body {
-                max-width: 90%; /* Adjust body width for mobile */
-                padding: 10px; /* Adjust padding for mobile */
-            }
-            p {
-                font-size: 0.9em; /* Adjust font size for mobile */
-                line-height: 1.5; /* Adjust line height for mobile */
-            }
-            .no-wrap {
-                white-space: normal; /* Allow line breaks on narrow screens */
-            }
-            p.social-links a {
-                font-size: 0.8em;
-                margin: 0 5px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Phanos Ha</title>
+  <link rel="icon" href="favicon.png" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900&display=swap" rel="stylesheet">
+  <style>
+    /* Website styles */
+    body {
+      font-family: "Roboto Mono", "BAG Regular", "Inter", sans-serif;
+      color: #333333;
+      background-color: #f8f8f8;
+      text-align: center;
+      padding: 20px;
+      margin: 0 auto;
+      max-width: 1000px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    body.butter-mode {
+      color: #F9E400;
+    }
+    body.butter-mode a {
+      color: #F9E400;
+    }
+    body.butter-mode a:hover {
+      color: #333333;
+    }
+    body.butter-mode h2 {
+      color: #F9E400 !important;
+    }
+    a {
+      color: black;
+      text-decoration: underline;
+    }
+    a:hover {
+      color: #F9E400;
+    }
+    ::selection {
+      background: #F9E400;
+      color: #7C00FE;
+    }
+    h1 {
+      font-size: 2.0em;
+      margin-bottom: 0.5em;
+    }
+    p {
+      font-size: 1.0em;
+      line-height: 1.8;
+      margin: 1em 0;
+    }
+    p a {
+      display: inline-block;
+      margin: 0 10px;
+    }
+    .no-wrap {
+      white-space: nowrap;
+    }
+    @media (max-width: 600px) {
+      body {
+        max-width: 90%;
+        padding: 10px;
+      }
+      p {
+        font-size: 0.9em;
+        line-height: 1.5;
+      }
+      .no-wrap {
+        white-space: normal;
+      }
+      p.social-links a {
+        font-size: 0.8em;
+        margin: 0 5px;
+      }
+    }
+    a.card__link {
+      text-decoration: none;
+    }
+    a.card__link:hover .card__button {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+    .card__button {
+      padding: 10px 20px;
+      margin: 10px 5px;
+      border-radius: 8px;
+      background: #777;
+      border: none;
+      color: white;
+      font-size: 14px;
+      font-weight: bold;
+      display: inline-block;
+    }
+    .card__image {
+      width: 100%;
+      height: auto;
+      margin-bottom: 0;
+      object-fit: cover;
+    }
+    .card__button.secondary {
+      background: transparent;
+      color: #777;
+      border: 1px solid #777;
+    }
+    /* Cards & toggle button styles */
+    #projects-content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+    .card {
+      box-sizing: border-box;
+      position: relative;
+      width: 350px;
+      background-color: #f2f2f2;
+      border-radius: 10px;
+      aspect-ratio: 16/9;
+      justify-content: center;
+      perspective: 1000px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      margin: 20px;
+      outline: 2px solid #F9E400;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      transition: all 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .card svg {
+      width: 48px;
+      fill: #333;
+      transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .card__content {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 20px;
+      box-sizing: border-box;
+      background-color: #f2f2f2;
+      transform: rotateX(-90deg);
+      transform-origin: bottom;
+      transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .card:hover .card__content {
+      transform: rotateX(0deg);
+    }
+    .card__title {
+      margin: 0;
+      font-size: 20px;
+      color: #333;
+      font-weight: 700;
+    }
+    .card:hover svg {
+      scale: 0;
+    }
+    .card__description {
+      margin: 10px 0;
+      font-size: 12px;
+      color: #777;
+      line-height: 1.4;
+    }
+    .card__button {
+      padding: 15px;
+      border-radius: 8px;
+      background: #777;
+      border: none;
+      color: white;
+    }
+    .secondary {
+      background: transparent;
+      color: #777;
+      border: 1px solid #777;
+    }
+    .btn {
+      display: block;
+      padding: 0.7em 1em;
+      background: transparent;
+      outline: none;
+      border: 0;
+      color: #d4af37;
+      letter-spacing: 0.1em;
+      font-family: monospace;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 1;
+    }
+    .cube {
+      position: relative;
+      transition: all 0.5s;
+    }
+    .cube .bg-top {
+      position: absolute;
+      height: 10px;
+      background: #d4af37;
+      bottom: 100%;
+      left: 5px;
+      right: -5px;
+      transform: skew(-45deg, 0);
+      transition: all 0.4s;
+    }
+    .cube .bg {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      top: 0;
+      right: 0;
+      background: #d4af37;
+      transition: all 0.4s;
+    }
+    .cube .bg-right {
+      position: absolute;
+      background: #d4af37;
+      top: -5px;
+      z-index: 0;
+      bottom: 5px;
+      width: 10px;
+      left: 100%;
+      transform: skew(0, -45deg);
+      transition: all 0.4s;
+    }
+    .cube .bg-inner {
+      background: #28282d;
+      position: absolute;
+      left: 2px;
+      right: 2px;
+      top: 2px;
+      bottom: 2px;
+    }
+    .cube .text {
+      position: relative;
+      transition: all 0.4s;
+    }
+    .cube:hover .bg-inner {
+      background: #d4af37;
+    }
+    .cube:hover .text {
+      color: #28282d;
+    }
+    .cube:hover .bg-right,
+    .cube:hover .bg,
+    .cube:hover .bg-top {
+      background: #28282d;
+    }
+    .cube:active {
+      z-index: 9999;
+      animation: bounce 0.1s linear;
+    }
+    @keyframes bounce {
+      50% { transform: scale(0.9); }
+    }
+    /* Background animations styles */
+    .toggle-container {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      z-index: 1000;
+    }
+    .toggle-switch {
+      width: 60px;
+      height: 30px;
+      background: #333;
+      border-radius: 30px;
+      position: relative;
+      cursor: pointer;
+    }
+    .toggle-thumb {
+      width: 26px;
+      height: 26px;
+      background-color: white;
+      border-radius: 50%;
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      background-image: url('almond.png');
+      background-size: 18px 18px;
+      background-position: center;
+      background-repeat: no-repeat;
+      transition: all 0.3s ease;
+    }
+    .toggle-switch.active .toggle-thumb {
+      left: 32px;
+      background-image: url('jar.png');
+    }
+    .almond {
+      position: absolute;
+      width: 20px;
+      height: 30px;
+      background-image: url('almond.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      pointer-events: none;
+      z-index: -1;
+      animation: fall linear infinite;
+    }
+    canvas#canvas1 {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      width: 100%;
+      height: 100%;
+      display: none;
+      filter: url(#stickyFilter);
+    }
+    @keyframes fall {
+      0% { transform: translateY(-100vh) rotate(0deg); }
+      100% { transform: translateY(100vh) rotate(360deg); }
+    }
+    /* Ensure website content stays on top */
+    #content {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+    }
+  </style>
 </head>
 <body>
+  <!-- SVG Filter for butter effect -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <filter id="stickyFilter">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="25" result="blur"/>
+      <feColorMatrix in="blur" type="matrix"
+        values="1 0 0 0 0
+                0 1 0 0 0
+                0 0 1 0 0
+                0 0 0 30 -15" result="threshold"/>
+      <feComposite in="threshold" in2="SourceGraphic" operator="atop" />
+    </filter>
+  </svg>
+  
+  <!-- Background elements -->
+  <canvas id="canvas1"></canvas>
+  <div class="toggle-container">
+    <div class="toggle-switch" id="modeToggle">
+      <div class="toggle-thumb"></div>
+    </div>
+  </div>
+  
+  <!-- Website Content -->
+  <div id="content">
     <h1>✌️Hi, this is Phanos</h1>
     <p>
-        🧠 I love nut butters and data.<br><br>
-        🔭 I'm currently building <a href="https://2050-materials.com/" target="_blank">2050 Materials</a><br>
-        <span class="no-wrap">🌱 And I'm also learning Design | AI Engineering | Fermentation cooking</span><br><br>
-        <span class="no-wrap">When not building something, I usually ride bikes and lift weights.</span><br>
+      🧠 I love nut butters and data.<br><br>
+      🔭 I'm currently building <a href="https://2050-materials.com/" target="_blank">2050 Materials</a><br>
+      <span class="no-wrap">🌱 And I'm also learning Design | AI Engineering | Fermentation cooking</span><br><br>
+      <span class="no-wrap">When not building something, I usually ride bikes and lift weights.</span><br>
     </p>
     <p class="social-links">
-        <a href="https://github.com/phanosh" target="_blank">github</a> | <a href="https://www.linkedin.com/in/phanosha/" target="_blank">linkedin</a> | <a href="https://twitter.com/phanosha" target="_blank">X</a> | <a href="https://medium.com/@hadjikyriakou.phanos" target="_blank">blog</a>
+      <a href="https://github.com/phanosh" target="_blank">github</a> | 
+      <a href="https://www.linkedin.com/in/phanosha/" target="_blank">linkedin</a> | 
+      <a href="https://twitter.com/phanosha" target="_blank">X</a> | 
+      <a href="https://medium.com/@hadjikyriakou.phanos" target="_blank">blog</a>
     </p>
-    <p>
+    <br>
     <p style="display: flex; justify-content: center; gap: 20px;">
-        <button id="projects-toggle-button" class="btn cube">
-            <div class="bg-top"><div class="bg-inner"></div></div>
-            <div class="bg"><div class="bg-inner"></div></div>
-            <div class="bg-right"><div class="bg-inner"></div></div>
-            <div class="text">See projects</div>
-        </button>
-        <button id="writings-toggle-button" class="btn cube">
-            <div class="bg-top"><div class="bg-inner"></div></div>
-            <div class="bg"><div class="bg-inner"></div></div>
-            <div class="bg-right"><div class="bg-inner"></div></div>
-            <div class="text">Writings & Podcasts</div>
-        </button>
+      <button id="projects-toggle-button" class="btn cube">
+        <div class="bg-top"><div class="bg-inner"></div></div>
+        <div class="bg"><div class="bg-inner"></div></div>
+        <div class="bg-right"><div class="bg-inner"></div></div>
+        <div class="text">See projects</div>
+      </button>
+      <button id="writings-toggle-button" class="btn cube">
+        <div class="bg-top"><div class="bg-inner"></div></div>
+        <div class="bg"><div class="bg-inner"></div></div>
+        <div class="bg-right"><div class="bg-inner"></div></div>
+        <div class="text">Writings & Podcasts</div>
+      </button>
     </p>
     <div id="projects-content" style="margin-top: 20px; display: none;"></div>
     <div id="writings-content" style="margin-top: 20px; display: none;">
-<div style="font-size: 1.2em; line-height: 1.6; text-align: left; max-width: 800px; margin: 0 auto;">
-    <!-- Articles Section -->
-    <div style="margin-bottom: 40px;">
-        <h2 style="font-size: 1.5em; margin-bottom: 20px; display: flex; align-items: center; color: #333;">
+      <div style="font-size: 1.2em; line-height: 1.6; text-align: left; max-width: 800px; margin: 0 auto;">
+        <!-- Articles Section -->
+        <div style="margin-bottom: 40px;">
+          <h2 style="font-size: 1.5em; margin-bottom: 20px; display: flex; align-items: center; color: #333;">
             <span style="margin-right: 15px; font-size: 1.2em;">📝</span>
             Articles
-        </h2>
-        <ul>
+          </h2>
+          <ul>
             <li style="margin-bottom: 2px; font-size: 0.85em; padding-left: 35px; display: flex; align-items: center; gap: 2px;">
-                <a href="https://www.linkedin.com/pulse/ai-agents-data-revolution-2025-phanos-hadjikyriakou-6uv2c/?trackingId=iz4QSQ8%2BRQSVU48%2BOMg8UQ%3D%3D" target="_blank" >- AI Agents and Data: The Revolution of 2025 (LinkedIn)</a>
-                
+              <a href="https://www.linkedin.com/pulse/ai-agents-data-revolution-2025-phanos-hadjikyriakou-6uv2c/?trackingId=iz4QSQ8%2BRQSVU48%2BOMg8UQ%3D%3D" target="_blank">- AI Agents and Data: The Revolution of 2025 (LinkedIn)</a>
             </li>
             <li style="margin-bottom: 2px; font-size: 0.85em; padding-left: 35px; display: flex; align-items: center; gap: 2px;">
-                <a href="https://www.linkedin.com/pulse/climate-data-enrichment-aec-mapping-carbon-project-hadjikyriakou-cyade/?trackingId=iz4QSQ8%2BRQSVU48%2BOMg8UQ%3D%3D" target="_blank" >- Climate Data Enrichment in AEC: Mapping Carbon to Project Data (LinkedIn)</a>
-                
+              <a href="https://www.linkedin.com/pulse/climate-data-enrichment-aec-mapping-carbon-project-hadjikyriakou-cyade/?trackingId=iz4QSQ8%2BRQSVU48%2BOMg8UQ%3D%3D" target="_blank">- Climate Data Enrichment in AEC: Mapping Carbon to Project Data (LinkedIn)</a>
             </li>
             <li style="margin-bottom: 2px; font-size: 0.85em; padding-left: 35px; display: flex; align-items: center; gap: 2px;">
-                <a href="https://www.linkedin.com/pulse/fit-purpose-guide-using-embodied-carbon-data-phanos-hadjikyriakou-dkwec/?trackingId=N%2BKjT2RdRFOtaXx9vghyJg%3D%3D" target="_blank" >- Fit for Purpose: A Guide to Using Embodied Carbon Data (LinkedIn)</a>
-                
+              <a href="https://www.linkedin.com/pulse/fit-purpose-guide-using-embodied-carbon-data-phanos-hadjikyriakou-dkwec/?trackingId=N%2BKjT2RdRFOtaXx9vghyJg%3D%3D" target="_blank">- Fit for Purpose: A Guide to Using Embodied Carbon Data (LinkedIn)</a>
             </li>
             <li style="margin-bottom: 2px; font-size: 0.85em; padding-left: 35px; display: flex; align-items: center; gap: 2px;">
-                <a href="https://www.linkedin.com/pulse/6-insights-data-climate-digital-construction-after-3-hadjikyriakou-wrxoc/?trackingId=N%2BKjT2RdRFOtaXx9vghyJg%3D%3D" target="_blank" >- 6 Insights on Data, Climate, and Digital Construction After 3 Years (LinkedIn)</a>
-                
+              <a href="https://www.linkedin.com/pulse/6-insights-data-climate-digital-construction-after-3-hadjikyriakou-wrxoc/?trackingId=N%2BKjT2RdRFOtaXx9vghyJg%3D%3D" target="_blank">- 6 Insights on Data, Climate, and Digital Construction After 3 Years (LinkedIn)</a>
             </li>
             <li style="margin-bottom: 2px; font-size: 0.85em; padding-left: 35px; display: flex; align-items: center; gap: 2px;">
-                <a href="https://www.linkedin.com/pulse/opinion-moving-away-from-lcas-towards-carbon-budgets-hadjikyriakou-rei1c/?trackingId=N%2BKjT2RdRFOtaXx9vghyJg%3D%3D" target="_blank" >- Opinion: Moving Away from LCAs Towards Carbon Budgets (LinkedIn)</a>
-                
+              <a href="https://www.linkedin.com/pulse/opinion-moving-away-from-lcas-towards-carbon-budgets-hadjikyriakou-rei1c/?trackingId=N%2BKjT2RdRFOtaXx9vghyJg%3D%3D" target="_blank">- Opinion: Moving Away from LCAs Towards Carbon Budgets (LinkedIn)</a>
             </li>
             <li style="margin-bottom: 2px; font-size: 0.85em; padding-left: 35px; display: flex; align-items: center; gap: 2px;">
-                <a href="https://blog.2050-materials.com/the-data-value-chains-role-in-tackling-the-climate-crisis-a1f91e1d0af8" target="_blank" >- The Data Value Chain's Role in Tackling the Climate Crisis (2050 Materials Blog)</a>
-                
+              <a href="https://blog.2050-materials.com/the-data-value-chains-role-in-tackling-the-climate-crisis-a1f91e1d0af8" target="_blank">- The Data Value Chain's Role in Tackling the Climate Crisis (2050 Materials Blog)</a>
             </li>
             <li style="margin-bottom: 2px; font-size: 0.85em; padding-left: 35px; display: flex; align-items: center; gap: 2px;">
-                <a href="https://blog.2050-materials.com/data-first-technology-second-theres-no-ai-without-good-data-6cd491279459" target="_blank" >- Data First, Technology Second: There’s No AI Without Good Data (2050 Materials Blog)</a>
-                
+              <a href="https://blog.2050-materials.com/data-first-technology-second-theres-no-ai-without-good-data-6cd491279459" target="_blank">- Data First, Technology Second: There’s No AI Without Good Data (2050 Materials Blog)</a>
             </li>
             <li style="margin-bottom: 2px; font-size: 0.85em; padding-left: 35px; display: flex; align-items: center; gap: 2px;">
-                <a href="https://blog.2050-materials.com/the-aec-industrys-obsession-with-yetanothercarbontool-93cdffc3867e" target="_blank" >- The AEC Industry's Obsession with #YetAnotherCarbonTool (2050 Materials Blog)</a>
-                
+              <a href="https://blog.2050-materials.com/the-aec-industrys-obsession-with-yetanothercarbontool-93cdffc3867e" target="_blank">- The AEC Industry's Obsession with #YetAnotherCarbonTool (2050 Materials Blog)</a>
             </li>
             <li style="margin-bottom: 2px; font-size: 0.85em; padding-left: 35px; display: flex; align-items: center; gap: 2px;">
-                <a href="https://blog.2050-materials.com/harnessing-chatgpt-in-aec-latent-space-activation-through-prompting-803861a4fed7" target="_blank" >- Harnessing ChatGPT in AEC: Latent Space Activation Through Prompting (2050 Materials Blog)</a>
-                
+              <a href="https://blog.2050-materials.com/harnessing-chatgpt-in-aec-latent-space-activation-through-prompting-803861a4fed7" target="_blank">- Harnessing ChatGPT in AEC: Latent Space Activation Through Prompting (2050 Materials Blog)</a>
             </li>
             <li style="margin-bottom: 2px; font-size: 0.85em; padding-left: 35px; display: flex; align-items: center; gap: 2px;">
-                <a href="https://blog.2050-materials.com/breaking-down-sbti-carbon-benchmarks-for-buildings-aka-how-much-upfront-carbon-is-ok-6d48449930f6" target="_blank" >- Breaking Down SBTi Carbon Benchmarks for Buildings (2050 Materials Blog)</a>
-                
+              <a href="https://blog.2050-materials.com/breaking-down-sbti-carbon-benchmarks-for-buildings-aka-how-much-upfront-carbon-is-ok-6d48449930f6" target="_blank">- Breaking Down SBTi Carbon Benchmarks for Buildings (2050 Materials Blog)</a>
             </li>
             <li style="margin-bottom: 2px; font-size: 0.85em; padding-left: 35px; display: flex; align-items: center; gap: 2px;">
-                <a href="https://blog.2050-materials.com/the-role-of-open-apis-in-material-passports-4aa139ed969b" target="_blank" >- The Role of Open APIs in Material Passports (2050 Materials Blog)</a>
-                
+              <a href="https://blog.2050-materials.com/the-role-of-open-apis-in-material-passports-4aa139ed969b" target="_blank">- The Role of Open APIs in Material Passports (2050 Materials Blog)</a>
             </li>
             <li style="margin-bottom: 2px; font-size: 0.85em; padding-left: 35px; display: flex; align-items: center; gap: 2px;">
-                <a href="https://blog.2050-materials.com/aecdata-an-open-source-python-library-to-do-more-with-construction-data-f19084a5b0fb" target="_blank" >- AECData: An Open Source Python Library to Do More with Construction Data (2050 Materials Blog)</a>
-                
+              <a href="https://blog.2050-materials.com/aecdata-an-open-source-python-library-to-do-more-with-construction-data-f19084a5b0fb" target="_blank">- AECData: An Open Source Python Library to Do More with Construction Data (2050 Materials Blog)</a>
             </li>
             <li style="margin-bottom: 2px; font-size: 0.85em; padding-left: 35px; display: flex; align-items: center; gap: 2px;">
-                <a href="https://blog.2050-materials.com/net-zero-is-a-data-integration-problem-b387ed8acd03" target="_blank" >- Net Zero is a Data Integration Problem (2050 Materials Blog)</a>
-                
+              <a href="https://blog.2050-materials.com/net-zero-is-a-data-integration-problem-b387ed8acd03" target="_blank">- Net Zero is a Data Integration Problem (2050 Materials Blog)</a>
             </li>
             <li style="margin-bottom: 2px; font-size: 0.85em; padding-left: 35px; display: flex; align-items: center; gap: 2px;">
-                <a href="https://medium.com/@hadjikyriakou.phanos/6-1-insights-on-data-climate-and-digital-construction-after-3-years-of-talking-to-the-aec-a04241729541" target="_blank" >- 6+1 Insights on Data, Climate, and Digital Construction (Medium)</a>
-                
+              <a href="https://medium.com/@hadjikyriakou.phanos/6-1-insights-on-data-climate-and-digital-construction-after-3-years-of-talking-to-the-aec-a04241729541" target="_blank">- 6+1 Insights on Data, Climate, and Digital Construction (Medium)</a>
             </li>
             <li style="margin-bottom: 2px; font-size: 0.85em; padding-left: 35px; display: flex; align-items: center; gap: 2px;">
-                <a href="https://blog.2050-materials.com/why-a-bim-library-with-embodied-carbon-data-might-be-the-perfect-climate-nudge-b58c4c39abff" target="_blank" >- Why a BIM Library with Embodied Carbon Data Might Be the Perfect Climate Nudge (2050 Materials Blog)</a>
-                
+              <a href="https://blog.2050-materials.com/why-a-bim-library-with-embodied-carbon-data-might-be-the-perfect-climate-nudge-b58c4c39abff" target="_blank">- Why a BIM Library with Embodied Carbon Data Might Be the Perfect Climate Nudge (2050 Materials Blog)</a>
             </li>
             <li style="margin-bottom: 2px; font-size: 0.85em; padding-left: 35px; display: flex; align-items: center; gap: 2px;">
-                <a href="https://blog.2050-materials.com/the-2050-materials-manifesto-d89deb63d712" target="_blank" >- The 2050 Materials Manifesto (2050 Materials Blog)</a>
-                
+              <a href="https://blog.2050-materials.com/the-2050-materials-manifesto-d89deb63d712" target="_blank">- The 2050 Materials Manifesto (2050 Materials Blog)</a>
             </li>
             <li style="margin-bottom: 2px; font-size: 0.85em; padding-left: 35px; display: flex; align-items: center; gap: 2px;">
-                <a href="https://www.longfinance.net/programmes/sustainable-futures/london-accord/reports/climate-risk-analysis-space-remote-sensing-machine-learning-and-future-measuring-climate-related-risk/" target="_blank" >- Climate Risk Analysis: Space, Remote Sensing, and Machine Learning (London Accord)</a>
-                
+              <a href="https://www.longfinance.net/programmes/sustainable-futures/london-accord/reports/climate-risk-analysis-space-remote-sensing-machine-learning-and-future-measuring-climate-related-risk/" target="_blank">- Climate Risk Analysis: Space, Remote Sensing, and Machine Learning (London Accord)</a>
             </li>
-        </ul>
-
-    </div>
-
-    <!-- Podcasts Section -->
-    <div style="margin-bottom: 40px;">
-        <h2 style="font-size: 1.5em; margin-bottom: 20px; display: flex; align-items: center; color: #333;">
+          </ul>
+        </div>
+        <!-- Podcasts Section -->
+        <div style="margin-bottom: 40px;">
+          <h2 style="font-size: 1.5em; margin-bottom: 20px; display: flex; align-items: center; color: #333;">
             <span style="margin-right: 15px; font-size: 1.2em;">🎙️</span>
             Podcasts
-        </h2>
-        <ul>
+          </h2>
+          <ul>
             <li style="margin-bottom: 2px; font-size: 0.85em; padding-left: 35px; display: flex; align-items: center; gap: 2px;">
-                <a href="https://open.spotify.com/show/7DIZmQHxsybpkapvWG0Kvo?si=8dac3a0d307340e5" target="_blank">- Load Bearing - A podcast about product data in AEC (Spotify)</a>
+              <a href="https://open.spotify.com/show/7DIZmQHxsybpkapvWG0Kvo?si=8dac3a0d307340e5" target="_blank">- Load Bearing - A podcast about product data in AEC (Spotify)</a>
             </li>
             <li style="margin-bottom: 2px; font-size: 0.85em; padding-left: 35px; display: flex; align-items: center; gap: 2px;">
-                <a href="https://open.spotify.com/episode/3PjKkQQaPSPaEnwsGw0e1a?si=GQdheNwDRSmqVOWBjpETCQ" target="_blank">- The Transformative Power of Data and Technology in Sustainable Construction (Spotify)</a>
+              <a href="https://open.spotify.com/episode/3PjKkQQaPSPaEnwsGw0e1a?si=GQdheNwDRSmqVOWBjpETCQ" target="_blank">- The Transformative Power of Data and Technology in Sustainable Construction (Spotify)</a>
             </li>
             <li style="margin-bottom: 2px; font-size: 0.85em; padding-left: 35px; display: flex; align-items: center; gap: 2px;">
-                <a href="https://open.spotify.com/episode/3t3pDUiNTDADVB1l8Nf0np?si=1fmI16ujS5mEKEym81i_cg" target="_blank">- Post-COP27 Roadmap for the Built Environment (Spotify)</a>
+              <a href="https://open.spotify.com/episode/3t3pDUiNTDADVB1l8Nf0np?si=1fmI16ujS5mEKEym81i_cg" target="_blank">- Post-COP27 Roadmap for the Built Environment (Spotify)</a>
             </li>
             <li style="margin-bottom: 2px; font-size: 0.85em; padding-left: 35px; display: flex; align-items: center; gap: 2px;">
-                <a href="https://www.rics.org/news-insights/the-transformative-power-of-data-and-technology-in-the-realm-of-sustainable-construction" target="_blank">- The Transformative Power of Data and Technology in Sustainable Construction (RICS)</a>
+              <a href="https://www.rics.org/news-insights/the-transformative-power-of-data-and-technology-in-the-realm-of-sustainable-construction" target="_blank">- The Transformative Power of Data and Technology in the Realm of Sustainable Construction (RICS)</a>
             </li>
             <li style="margin-bottom: 2px; font-size: 0.85em; padding-left: 35px; display: flex; align-items: center; gap: 2px;">
-                <a href="https://biofilico.com/news/sustainable-building-data-2050-materials" target="_blank">- Sustainable Building Data: Insights from 2050 Materials (Biofilico)</a>
+              <a href="https://biofilico.com/news/sustainable-building-data-2050-materials" target="_blank">- Sustainable Building Data: Insights from 2050 Materials (Biofilico)</a>
             </li>
             <li style="margin-bottom: 2px; font-size: 0.85em; padding-left: 35px; display: flex; align-items: center; gap: 2px;">
-                <a href="https://www.shareyourgreendesign.com/media/10-piers-taylor/" target="_blank">- Interview with Piers Taylor on Sustainable Design (Share Your Green Design)</a>
+              <a href="https://www.shareyourgreendesign.com/media/10-piers-taylor/" target="_blank">- Interview with Piers Taylor on Sustainable Design (Share Your Green Design)</a>
             </li>
             <li style="margin-bottom: 2px; font-size: 0.85em; padding-left: 35px; display: flex; align-items: center; gap: 2px;">
-                <a href="https://constructive-voices.com/episode-46-what-is-the-post-cop27-roadmap-for-the-built-environment/" target="_blank">- Post-COP27 Roadmap for the Built Environment (Constructive Voices)</a>
+              <a href="https://constructive-voices.com/episode-46-what-is-the-post-cop27-roadmap-for-the-built-environment/" target="_blank">- Post-COP27 Roadmap for the Built Environment (Constructive Voices)</a>
             </li>
-        </ul>
+          </ul>
+        </div>
+      </div>
     </div>
-</div>
-    </div>
+  </div>
+  
+  <!-- Website Interaction Script -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const projectsButton = document.getElementById("projects-toggle-button");
+      const projectsContent = document.getElementById("projects-content");
+      const writingsButton = document.getElementById("writings-toggle-button");
+      const writingsContent = document.getElementById("writings-content");
+      
+      // Set initial button texts
+      projectsButton.querySelector(".text").textContent = "See projects";
+      writingsButton.querySelector(".text").textContent = "Writings & Podcasts";
+      
+      // Project HTML content
+      const projectHTML = `
+        <div class="card">
+          <img src="imgs/2050materials.png" alt="2050Materials" class="card__image">
+          <div class="card__content">
+            <p class="card__title">2050 Materials</p>
+            <p class="card__description">Giving AEC data the framework & integration it deserves.</p>
+            <div class="card__buttons">
+              <a href="https://2050-materials.com" target="_blank" class="card__link">
+                <button class="card__button">Website</button>
+              </a>
+              <a href="https://docs.2050-materials.com" target="_blank" class="card__link">
+                <button class="card__button secondary">Docs</button>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <img src="imgs/climate_kpis.png" alt="Climate KPIs" class="card__image">
+          <div class="card__content">
+            <p class="card__title">Climate KPIs</p>
+            <p class="card__description">Find the right climate KPI in any industry, to promote progress, not .</p>
+            <div class="card__buttons">
+              <a href="https://phanosha.com/climate-kpis/" target="_blank" class="card__link">
+                <button class="card__button">Live Demo</button>
+              </a>
+              <a href="https://github.com/phanosh/climate-kpis" target="_blank" class="card__link">
+                <button class="card__button secondary">Source Code</button>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <img src="imgs/strength.jpg" alt="Strength Benchmarking" class="card__image">
+          <div class="card__content">
+            <p class="card__title">Strength Benchmarking</p>
+            <p class="card__description">A project to easily benchmark your strength based on basic lifts and global data.</p>
+            <div class="card__buttons">
+              <a href="https://phanosha.com/gainsculator/" target="_blank" class="card__link">
+                <button class="card__button">Live Demo</button>
+              </a>
+              <a href="https://github.com/phanosh/gainsculator" target="_blank" class="card__link">
+                <button class="card__button secondary">Source Code</button>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <img src="imgs/supplement_guide.png" alt="supplement_guide" class="card__image">
+          <div class="card__content">
+            <p class="card__title">Should I Take?</p>
+            <p class="card__description">A typescript app that offers a repository of information about wellness and fitness supplements (WIP).</p>
+            <div class="card__buttons">
+              <a href="https://shoulditake.com/" target="_blank" class="card__link">
+                <button class="card__button">Live Demo</button>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <img src="imgs/reverse_lca.png" alt="reverse_lca" class="card__image">
+          <div class="card__content">
+            <p class="card__title">Reverse LCA</p>
+            <p class="card__description">A tool developed with 2050 Materials to break down embodied carbon targets to actions.</p>
+            <div class="card__buttons">
+              <a href="https://climatetargetstoolapp-fvi2zffbgfxegq7ydtdgjz.streamlit.app/" target="_blank" class="card__link">
+                <button class="card__button">Live Demo</button>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <img src="imgs/white-logo.png" alt="white_logo" class="card__image">
+          <div class="card__content">
+            <p class="card__title">Logo Color Change</p>
+            <p class="card__description">A simple, drag-and-drop website to transform any logo to white. Useful when working on slides with dark backgrounds.</p>
+            <div class="card__buttons">
+              <a href="https://phanosha.com/logo-color-change/" target="_blank" class="card__link">
+                <button class="card__button">Live Demo</button>
+              </a>
+              <a href="https://github.com/phanosh/logo-color-change" target="_blank" class="card__link">
+                <button class="card__button secondary">Source Code</button>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <img src="imgs/epd_gpt.png" alt="epd_gpt" class="card__image">
+          <div class="card__content">
+            <p class="card__title">EPD Analyzer</p>
+            <p class="card__description">A GPT that can read, explain and understand complicated environmental product declarations (600+ chats)</p>
+            <div class="card__buttons">
+              <a href="https://chatgpt.com/g/g-5ExaYznZ4-epd-analyzer" target="_blank" class="card__link">
+                <button class="card__button">Try it</button>
+              </a>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      projectsButton.addEventListener("click", function() {
+        if (projectsContent.style.display === "none") {
+          projectsContent.style.display = "flex";
+          writingsContent.style.display = "none";
+          projectsContent.innerHTML = projectHTML;
+          projectsButton.querySelector(".text").textContent = "Hide projects";
+          writingsButton.querySelector(".text").textContent = "Writings & Podcasts";
+        } else {
+          projectsContent.style.display = "none";
+          projectsContent.innerHTML = "";
+          projectsButton.querySelector(".text").textContent = "See projects";
+        }
+      });
+      
+      writingsButton.addEventListener("click", function() {
+        if (writingsContent.style.display === "none") {
+          writingsContent.style.display = "block";
+          projectsContent.style.display = "none";
+          projectsContent.innerHTML = "";
+          writingsButton.querySelector(".text").textContent = "Hide";
+          projectsButton.querySelector(".text").textContent = "Projects";
+        } else {
+          writingsContent.style.display = "none";
+          writingsButton.querySelector(".text").textContent = "Articles & Podcasts";
+        }
+      });
+    });
+  </script>
+  
+  <!-- Background Animation Script -->
+  <script>
+    let mode = 'almond';
+    const count = 50;
+    const elements = [];
+    const canvas = document.getElementById("canvas1");
+    const ctx = canvas.getContext("2d");
 
-    <style>
-        /* Button Styles */
-        .btn {
-          display: block;
-          padding: 0.7em 1em;
-          background: transparent;
-          outline: none;
-          border: 0;
-          color: #d4af37;
-          letter-spacing: 0.1em;
-          font-family: monospace;
-          font-size: 17px;
-          font-weight: bold;
-          cursor: pointer;
-          z-index: 1;
-        }
-        .cube {
-          position: relative;
-          transition: all 0.5s;
-        }
-        .cube .bg-top {
-          position: absolute;
-          height: 10px;
-          background: #d4af37;
-          bottom: 100%;
-          left: 5px;
-          right: -5px;
-          transform: skew(-45deg, 0);
-          margin: 0;
-          transition: all 0.4s;
-        }
-        .cube .bg {
-          position: absolute;
-          left: 0;
-          bottom: 0;
-          top: 0;
-          right: 0;
-          background: #d4af37;
-          transition: all 0.4s;
-        }
-        .cube .bg-right {
-          position: absolute;
-          background: #d4af37;
-          top: -5px;
-          z-index: 0;
-          bottom: 5px;
-          width: 10px;
-          left: 100%;
-          transform: skew(0, -45deg);
-          transition: all 0.4s;
-        }
-        .cube .bg-inner {
-          background: #28282d;
-          position: absolute;
-          left: 2px;
-          right: 2px;
-          top: 2px;
-          bottom: 2px;
-        }
-        .cube .text {
-          position: relative;
-          transition: all 0.4s;
-        }
-        .cube:hover .bg-inner {
-          background: #d4af37;
-        }
-        .cube:hover .text {
-          color: #28282d;
-        }
-        .cube:hover .bg-right,
-        .cube:hover .bg,
-        .cube:hover .bg-top {
-          background: #28282d;
-        }
-        .cube:active {
-          z-index: 9999;
-          animation: bounce 0.1s linear;
-        }
-        @keyframes bounce {
-          50% { transform: scale(0.9); }
-        }
-        #projects-content {
-            display: flex;
-            flex-wrap: wrap; /* Allow content to wrap to the next row */
-            justify-content: center; /* Center the cards horizontally */
-            gap: 20px; /* Space between cards */
-        }
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', () => {
+      resizeCanvas();
+      populate(mode);
+    });
 
-        /* Card Styles */
-        .card {
-            box-sizing: border-box; /* Ensure padding and border are included in the width calculation */
-            position: relative;
-            width: 350px;
-            background-color: #f2f2f2;
-            border-radius: 10px;
-            aspect-ratio: 16/9;
-            justify-content: center;
-            perspective: 1000px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px; /* Add padding for spacing inside the card */
-            margin: 20px; /* Add margin for spacing between cards */
-            outline: 2px solid #F9E400; /* Add yellow outline to card */
-            overflow: hidden;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Light shadow to lift the cards visually */
-            transition: all 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    ctx.fillStyle = "rgba(87, 43, 11)";
+
+    class Ball {
+      constructor(effect){
+        this.effect = effect;
+        this.radius = Math.random() * 800 + 30;
+        this.x = this.radius * 2 + (Math.random() * (this.effect.width - this.radius * 4));
+        this.y = -this.radius;
+        this.speedX = Math.random() * 0.1 - 0.1;
+        this.speedY = Math.random() * 0.1 + 0.5;
+        this.angle = 0;
+        this.va = Math.random() * 0.1 - 0.05;
+        this.range = Math.random() * 30;
+        this.gravity = Math.random() * 0.005;
+        this.vy = 0;
+      }
+      update(){
+        this.x += this.speedX;
+        this.vy += this.gravity;
+        this.y += this.speedY + this.vy;
+        if (this.x < this.radius || this.x > this.effect.width - this.radius) {
+          this.speedX *= -1;
         }
-        .card svg {
-          width: 48px;
-          fill: #333;
-          transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        if (this.y > this.effect.height + this.radius) {
+          this.radius = Math.random() * 800 + 30;
+          this.y = -this.radius;
+          this.vy = 0;
+          this.speedY = Math.random() * 0.5 + 0.2;
+          this.x = this.radius * 2 + (Math.random() * (this.effect.width - this.radius * 4));
         }
-        .card__content {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          padding: 20px;
-          box-sizing: border-box;
-          background-color: #f2f2f2;
-          transform: rotateX(-90deg);
-          transform-origin: bottom;
-          transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+      draw(context) {
+        context.beginPath();
+        context.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        context.fill();
+      }
+    }
+
+    class Effect {
+      constructor(width, height) {
+        this.width = width;
+        this.height = height;
+        this.balls = [];
+        this.numberOfBalls = 30;
+        for (let i = 0; i < this.numberOfBalls; i++) {
+          this.balls.push(new Ball(this));
         }
-        .card:hover .card__content {
-          transform: rotateX(0deg);
+      }
+      update() {
+        this.balls.forEach(ball => ball.update());
+      }
+      draw(context) {
+        this.balls.forEach(ball => ball.draw(context));
+      }
+    }
+
+    let effect = new Effect(canvas.width, canvas.height);
+
+    function animate() {
+      if (mode === 'butter') {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        effect.update();
+        effect.draw(ctx);
+      }
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    function createAlmond() {
+      const el = document.createElement('div');
+      el.classList.add('almond');
+      el.style.left = Math.random() * 100 + 'vw';
+      el.style.top = -(Math.random() * 100) + 'vh';
+      el.style.animationDuration = 5 + Math.random() * 5 + 's';
+      document.body.appendChild(el);
+      elements.push(el);
+    }
+    function clearItems() {
+      elements.forEach(el => el.remove());
+      elements.length = 0;
+    }
+    function populate(mode) {
+      clearItems();
+      if (mode === 'almond') {
+        canvas.style.display = 'none';
+        for (let i = 0; i < count; i++) {
+          createAlmond();
         }
-        .card__title {
-          margin: 0;
-          font-size: 20px;
-          color: #333;
-          font-weight: 700;
-        }
-        .card:hover svg {
-          scale: 0;
-        }
-        .card__description {
-          margin: 10px 0 10px;
-          font-size: 12px;
-          color: #777;
-          line-height: 1.4;
-        }
-        .card__button {
-          padding: 15px;
-          border-radius: 8px;
-          background: #777;
-          border: none;
-          color: white;
-        }
-        .secondary {
-          background: transparent;
-          color: #777;
-          border: 1px solid #777;
-        }
-    </style>
+      } else {
+        canvas.style.display = 'block';
+        effect = new Effect(canvas.width, canvas.height);
+      }
+    }
+    const toggle = document.getElementById('modeToggle');
+    toggle.addEventListener('click', () => {
+      toggle.classList.toggle('active');
+      mode = toggle.classList.contains('active') ? 'butter' : 'almond';
+      populate(mode);
 
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const projectsButton = document.getElementById("projects-toggle-button");
-            const projectsContent = document.getElementById("projects-content");
-
-                        // Writings button functionality
-            const writingsButton = document.getElementById("writings-toggle-button");
-            const writingsContent = document.getElementById("writings-content");
-
-
-            // Set initial button texts
-            projectsButton.querySelector(".text").textContent = "See projects";
-            writingsButton.querySelector(".text").textContent = "Writings & Podcasts";
-
-
-            // Project HTML content
-            const projectHTML = `
-                    <div class="card">
-                    <img src="imgs/2050materials.png" alt="2050Materials" class="card__image">
-                    <div class="card__content">
-                        <p class="card__title">2050 Materials</p>
-                        <p class="card__description">Giving AEC data the framework & integration it deserves.</p>
-                        <div class="card__buttons">
-                            <a href="https://2050-materials.com" target="_blank" class="card__link">
-                                <button class="card__button">Website</button>
-                            </a>
-                            <a href="https://docs.2050-materials.com" target="_blank" class="card__link">
-                                <button class="card__button secondary">Docs</button>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="imgs/climate_kpis.png" alt="Climate KPIs" class="card__image">
-                    <div class="card__content">
-                        <p class="card__title">Climate KPIs</p>
-                        <p class="card__description">Find the right climate KPI in any industry, to promote progress, not .</p>
-                        <div class="card__buttons">
-                            <a href="https://phanosha.com/climate-kpis/" target="_blank" class="card__link">
-                                <button class="card__button">Live Demo</button>
-                            </a>
-                            <a href="https://github.com/phanosh/climate-kpis" target="_blank" class="card__link">
-                                <button class="card__button secondary">Source Code</button>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="imgs/strength.jpg" alt="Strength Benchmarking" class="card__image">
-                    <div class="card__content">
-                        <p class="card__title">Strength Benchmarking</p>
-                        <p class="card__description">A project to easily benchmark your strength based on basic lifts and global data.</p>
-                        <div class="card__buttons">
-                            <a href="https://phanosha.com/gainsculator/" target="_blank" class="card__link">
-                                <button class="card__button">Live Demo</button>
-                            </a>
-                            <a href="https://github.com/phanosh/gainsculator" target="_blank" class="card__link">
-                                <button class="card__button secondary">Source Code</button>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="imgs/supplement_guide.png" alt="supplement_giide" class="card__image">
-                    <div class="card__content">
-                        <p class="card__title">Should I Take?</p>
-                        <p class="card__description">A typescript app that offers a repository of information about wellness and fitness supplements (WIP).</p>
-                        <div class="card__buttons">
-                            <a href="https://shoulditake.com/" target="_blank" class="card__link">
-                                <button class="card__button">Live Demo</button>
-                            </a>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="imgs/reverse_lca.png" alt="reverse_lca" class="card__image">
-                    <div class="card__content">
-                        <p class="card__title">Reverse LCA</p>
-                        <p class="card__description">A tool developed with 2050 Materials to break down embodied carbon targets to actions.</p>
-                        <div class="card__buttons">
-                            <a href="https://climatetargetstoolapp-fvi2zffbgfxegq7ydtdgjz.streamlit.app/" target="_blank" class="card__link">
-                                <button class="card__button">Live Demo</button>
-                            </a>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="imgs/white-logo.png" alt="white_logo" class="card__image">
-                    <div class="card__content">
-                        <p class="card__title">Logo Color Change</p>
-                        <p class="card__description">A simple, drag-and-drop website to transform any logo to white. Useful when working on slides with dark backgrounds.</p>
-                        <div class="card__buttons">
-                            <a href="https://phanosha.com/logo-color-change/" target="_blank" class="card__link">
-                                <button class="card__button">Live Demo</button>
-                            </a>
-                            <a href="https://github.com/phanosh/logo-color-change" target="_blank" class="card__link">
-                                <button class="card__button secondary">Source Code</button>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="imgs/epd_gpt.png" alt="epd_gpt" class="card__image">
-                    <div class="card__content">
-                        <p class="card__title">EPD Analyzer</p>
-                        <p class="card__description">A GPT that can read, explain and understand complicated environmental product declarations (600+ chats)</p>
-                        <div class="card__buttons">
-                            <a href="https://chatgpt.com/g/g-5ExaYznZ4-epd-analyzer" target="_blank" class="card__link">
-                                <button class="card__button">Try it</button>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            `;
-
-            // Projects button click handler
-            projectsButton.addEventListener("click", function() {
-                if (projectsContent.style.display === "none") {
-                    projectsContent.style.display = "flex";
-                    writingsContent.style.display = "none"; // Hide writings when showing projects
-                    projectsContent.innerHTML = projectHTML;
-                    projectsButton.querySelector(".text").textContent = "Hide projects";
-                    writingsButton.querySelector(".text").textContent = "Writings & Podcasts";
-                } else {
-                    projectsContent.style.display = "none";
-                    projectsContent.innerHTML = "";
-                    projectsButton.querySelector(".text").textContent = "See projects";
-                }
-            });
-            // Writings button click handler
-            writingsButton.addEventListener("click", function() {
-                if (writingsContent.style.display === "none") {
-                    writingsContent.style.display = "block";
-                    projectsContent.style.display = "none"; // Hide projects when showing writings
-                    projectsContent.innerHTML = ""; // Clear projects content
-                    writingsButton.querySelector(".text").textContent = "Hide writings";
-                    projectsButton.querySelector(".text").textContent = "See projects";
-                } else {
-                    writingsContent.style.display = "none";
-                    // Remove this line: writingsContent.innerHTML = "";
-                    writingsButton.querySelector(".text").textContent = "Writings & Podcasts";
-                }
-            });
-        });
-    </script>
+    if (mode === 'butter') {
+        document.body.classList.add('butter-mode');
+      } else {
+        document.body.classList.remove('butter-mode');
+      }
+    });
+    populate(mode);
+  </script>
 </body>
 </html>
