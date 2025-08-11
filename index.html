@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900&display=swap" rel="stylesheet">
   <style>
-    /* Website styles */
+    /* Website styles (kept, with minor global link cleanup for sleeker feel) */
     body {
       font-family: "Roboto Mono", "BAG Regular", "Inter", sans-serif;
       color: #333333;
@@ -23,307 +23,117 @@
       align-items: center;
       justify-content: center;
     }
-    body.butter-mode {
-      color: #F9E400;
-    }
-    body.butter-mode a {
-      color: #F9E400;
-    }
-    body.butter-mode a:hover {
-      color: #333333;
-    }
-    body.butter-mode h2 {
-      color: #F9E400 !important;
-    }
-    a {
-      color: black;
-      text-decoration: underline;
-    }
-    a:hover {
-      color: #F9E400;
-    }
-    ::selection {
-      background: #F9E400;
-      color: #7C00FE;
-    }
-    h1 {
-      font-size: 2.0em;
-      margin-bottom: 0.5em;
-    }
-    p {
-      font-size: 1.0em;
-      line-height: 1.8;
-      margin: 1em 0;
-    }
-    p a {
-      display: inline-block;
-      margin: 0 10px;
-    }
-    .no-wrap {
-      white-space: nowrap;
-    }
+    body.butter-mode { color: #F9E400; }
+    body.butter-mode a { color: #F9E400; }
+    body.butter-mode a:hover { color: #333333; }
+    body.butter-mode h2 { color: #F9E400 !important; }
+
+    /* Sleeker default links (override underline) */
+    a { color: black; text-decoration: none; border-bottom: 1px solid transparent; transition: color .2s ease, border-color .2s ease; }
+    a:hover { color: #F9E400; border-bottom-color: #F9E400; }
+
+    ::selection { background: #F9E400; color: #7C00FE; }
+    h1 { font-size: 2.0em; margin-bottom: 0.5em; }
+    p { font-size: 1.0em; line-height: 1.8; margin: 1em 0; }
+    p a { display: inline-block; margin: 0 10px; }
+    .no-wrap { white-space: nowrap; }
+
     @media (max-width: 600px) {
-      body {
-        max-width: 90%;
-        padding: 10px;
-      }
-      p {
-        font-size: 0.9em;
-        line-height: 1.5;
-      }
-      .no-wrap {
-        white-space: normal;
-      }
-      p.social-links a {
-        font-size: 0.8em;
-        margin: 0 5px;
-      }
+      body { max-width: 90%; padding: 10px; }
+      p { font-size: 0.9em; line-height: 1.5; }
+      .no-wrap { white-space: normal; }
+      p.social-links a { font-size: 0.8em; margin: 0 5px; }
     }
-    a.card__link {
-      text-decoration: none;
-    }
-    a.card__link:hover .card__button {
-      text-decoration: underline;
-      cursor: pointer;
-    }
+
+    a.card__link { text-decoration: none; }
+    a.card__link:hover .card__button { text-decoration: underline; cursor: pointer; }
     .card__button {
-      padding: 10px 20px;
-      margin: 10px 5px;
-      border-radius: 8px;
-      background: #777;
-      border: none;
-      color: white;
-      font-size: 14px;
-      font-weight: bold;
-      display: inline-block;
+      padding: 10px 20px; margin: 10px 5px; border-radius: 8px; background: #777; border: none; color: white; font-size: 14px; font-weight: bold; display: inline-block;
     }
-    .card__image {
-      width: 100%;
-      height: auto;
-      margin-bottom: 0;
-      object-fit: cover;
-    }
-    .card__button.secondary {
-      background: transparent;
-      color: #777;
-      border: 1px solid #777;
-    }
+    .card__image { width: 100%; height: auto; margin-bottom: 0; object-fit: cover; }
+    .card__button.secondary { background: transparent; color: #777; border: 1px solid #777; }
+
     /* Cards & toggle button styles */
-    #projects-content {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-    }
+    #projects-content { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
     .card {
-      box-sizing: border-box;
-      position: relative;
-      width: 350px;
-      background-color: #f2f2f2;
-      border-radius: 10px;
-      aspect-ratio: 16/9;
-      justify-content: center;
-      perspective: 1000px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 20px;
-      margin: 20px;
-      outline: 2px solid #F9E400;
-      overflow: hidden;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      box-sizing: border-box; position: relative; width: 350px; background-color: #f2f2f2; border-radius: 10px; aspect-ratio: 16/9;
+      justify-content: center; perspective: 1000px; display: flex; flex-direction: column; align-items: center; padding: 20px; margin: 20px;
+      outline: 2px solid #F9E400; overflow: hidden; box-shadow: 0 0 10px rgba(0,0,0,0.1);
       transition: all 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
-    .card svg {
-      width: 48px;
-      fill: #333;
-      transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
+    .card svg { width: 48px; fill: #333; transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
     .card__content {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      padding: 20px;
-      box-sizing: border-box;
-      background-color: #f2f2f2;
-      transform: rotateX(-90deg);
-      transform-origin: bottom;
-      transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%; padding: 20px; box-sizing: border-box; background-color: #f2f2f2;
+      transform: rotateX(-90deg); transform-origin: bottom; transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
-    .card:hover .card__content {
-      transform: rotateX(0deg);
-    }
-    .card__title {
-      margin: 0;
-      font-size: 20px;
-      color: #333;
-      font-weight: 700;
-    }
-    .card:hover svg {
-      scale: 0;
-    }
-    .card__description {
-      margin: 10px 0;
-      font-size: 12px;
-      color: #777;
-      line-height: 1.4;
-    }
-    .card__button {
-      padding: 15px;
-      border-radius: 8px;
-      background: #777;
-      border: none;
-      color: white;
-    }
-    .secondary {
-      background: transparent;
-      color: #777;
-      border: 1px solid #777;
-    }
+    .card:hover .card__content { transform: rotateX(0deg); }
+    .card__title { margin: 0; font-size: 20px; color: #333; font-weight: 700; }
+    .card:hover svg { scale: 0; }
+    .card__description { margin: 10px 0; font-size: 12px; color: #777; line-height: 1.4; }
+    .card__button { padding: 15px; border-radius: 8px; background: #777; border: none; color: white; }
+    .secondary { background: transparent; color: #777; border: 1px solid #777; }
+
     .btn {
-      display: block;
-      padding: 0.7em 1em;
-      background: transparent;
-      outline: none;
-      border: 0;
-      color: #d4af37;
-      letter-spacing: 0.1em;
-      font-family: monospace;
-      font-size: 17px;
-      font-weight: bold;
-      cursor: pointer;
-      z-index: 1;
+      display: block; padding: 0.7em 1em; background: transparent; outline: none; border: 0; color: #d4af37; letter-spacing: 0.1em;
+      font-family: monospace; font-size: 17px; font-weight: bold; cursor: pointer; z-index: 1;
     }
-    .cube {
-      position: relative;
-      transition: all 0.5s;
-    }
-    .cube .bg-top {
-      position: absolute;
-      height: 10px;
-      background: #d4af37;
-      bottom: 100%;
-      left: 5px;
-      right: -5px;
-      transform: skew(-45deg, 0);
-      transition: all 0.4s;
-    }
-    .cube .bg {
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      top: 0;
-      right: 0;
-      background: #d4af37;
-      transition: all 0.4s;
-    }
-    .cube .bg-right {
-      position: absolute;
-      background: #d4af37;
-      top: -5px;
-      z-index: 0;
-      bottom: 5px;
-      width: 10px;
-      left: 100%;
-      transform: skew(0, -45deg);
-      transition: all 0.4s;
-    }
-    .cube .bg-inner {
-      background: #28282d;
-      position: absolute;
-      left: 2px;
-      right: 2px;
-      top: 2px;
-      bottom: 2px;
-    }
-    .cube .text {
-      position: relative;
-      transition: all 0.4s;
-    }
-    .cube:hover .bg-inner {
-      background: #d4af37;
-    }
-    .cube:hover .text {
-      color: #28282d;
-    }
-    .cube:hover .bg-right,
-    .cube:hover .bg,
-    .cube:hover .bg-top {
-      background: #28282d;
-    }
-    .cube:active {
-      z-index: 9999;
-      animation: bounce 0.1s linear;
-    }
-    @keyframes bounce {
-      50% { transform: scale(0.9); }
-    }
+    .cube { position: relative; transition: all 0.5s; }
+    .cube .bg-top { position: absolute; height: 10px; background: #d4af37; bottom: 100%; left: 5px; right: -5px; transform: skew(-45deg, 0); transition: all 0.4s; }
+    .cube .bg { position: absolute; left: 0; bottom: 0; top: 0; right: 0; background: #d4af37; transition: all 0.4s; }
+    .cube .bg-right { position: absolute; background: #d4af37; top: -5px; z-index: 0; bottom: 5px; width: 10px; left: 100%; transform: skew(0, -45deg); transition: all 0.4s; }
+    .cube .bg-inner { background: #28282d; position: absolute; left: 2px; right: 2px; top: 2px; bottom: 2px; }
+    .cube .text { position: relative; transition: all 0.4s; }
+    .cube:hover .bg-inner { background: #d4af37; }
+    .cube:hover .text { color: #28282d; }
+    .cube:hover .bg-right, .cube:hover .bg, .cube:hover .bg-top { background: #28282d; }
+    .cube:active { z-index: 9999; animation: bounce 0.1s linear; }
+    @keyframes bounce { 50% { transform: scale(0.9); } }
+
     /* Background animations styles */
-    .toggle-container {
-      position: fixed;
-      top: 10px;
-      right: 10px;
-      z-index: 1000;
-    }
-    .toggle-switch {
-      width: 60px;
-      height: 30px;
-      background: #333;
-      border-radius: 30px;
-      position: relative;
-      cursor: pointer;
-    }
+    .toggle-container { position: fixed; top: 10px; right: 10px; z-index: 1000; }
+    .toggle-switch { width: 60px; height: 30px; background: #333; border-radius: 30px; position: relative; cursor: pointer; }
     .toggle-thumb {
-      width: 26px;
-      height: 26px;
-      background-color: white;
-      border-radius: 50%;
-      position: absolute;
-      top: 2px;
-      left: 2px;
-      background-image: url('almond.png');
-      background-size: 18px 18px;
-      background-position: center;
-      background-repeat: no-repeat;
-      transition: all 0.3s ease;
+      width: 26px; height: 26px; background-color: white; border-radius: 50%; position: absolute; top: 2px; left: 2px;
+      background-image: url('almond.png'); background-size: 18px 18px; background-position: center; background-repeat: no-repeat; transition: all 0.3s ease;
     }
-    .toggle-switch.active .toggle-thumb {
-      left: 32px;
-      background-image: url('jar.png');
+    .toggle-switch.active .toggle-thumb { left: 32px; background-image: url('jar.png'); }
+    .almond { position: absolute; width: 20px; height: 30px; background-image: url('almond.png'); background-size: contain; background-repeat: no-repeat; pointer-events: none; z-index: -1; animation: fall linear infinite; }
+    canvas#canvas1 { position: fixed; top: 0; left: 0; z-index: -1; width: 100%; height: 100%; display: none; filter: url(#stickyFilter); }
+    @keyframes fall { 0% { transform: translateY(-100vh) rotate(0deg); } 100% { transform: translateY(100vh) rotate(360deg); } }
+
+    #content { position: relative; z-index: 1; width: 100%; }
+
+    /* ===== Sleek cards for Articles & Podcasts ===== */
+    :root {
+      --card-bg:#ffffff; --line:#eaeaea; --ink:#222; --muted:#6f6f6f; --radius:14px;
+      --shadow:0 6px 24px rgba(0,0,0,.06); --shadow-hover:0 10px 28px rgba(0,0,0,.10);
+      --accent:#F9E400;
     }
-    .almond {
-      position: absolute;
-      width: 20px;
-      height: 30px;
-      background-image: url('almond.png');
-      background-size: contain;
-      background-repeat: no-repeat;
-      pointer-events: none;
-      z-index: -1;
-      animation: fall linear infinite;
+    .section-wrap { margin-top: 20px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+    .item-card {
+      background: var(--card-bg); border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 16px; text-align: left; box-shadow: var(--shadow); transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
     }
-    canvas#canvas1 {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: -1;
-      width: 100%;
-      height: 100%;
-      display: none;
-      filter: url(#stickyFilter);
-    }
-    @keyframes fall {
-      0% { transform: translateY(-100vh) rotate(0deg); }
-      100% { transform: translateY(100vh) rotate(360deg); }
-    }
-    /* Ensure website content stays on top */
-    #content {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-    }
+    .item-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); border-color: #ddd; }
+    .item-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+    .pill { font-size: .72rem; line-height: 1; padding: .42rem .56rem; border-radius: 999px; border: 1px solid #ddd; color: #333; background: #fafafa; }
+    .year { font-size: .72rem; color: var(--muted); }
+    .item-title { display: block; margin: 6px 0 2px 0; font-size: 1rem; font-weight: 700; color: var(--ink); }
+    .item-host { font-size: .85rem; color: var(--muted); margin: 0; }
+    .cta { display: inline-flex; align-items: center; gap: 8px; margin-top: 10px; font-size: .9rem; }
+    .arrow { transition: transform .2s ease; }
+    .item-card:hover .arrow { transform: translateX(2px); }
+    .item-card a { border-bottom: 0; } /* keep cards ultra-clean */
+
+    /* Butter theme */
+    body.butter-mode .item-card { background: #141414; border-color: #2a2a2a; }
+    body.butter-mode .item-title { color: var(--accent); }
+    body.butter-mode .pill { background: #111; border-color: #333; color: #eee; }
+    body.butter-mode .item-host, body.butter-mode .year { color: #b7b7b7; }
+
+    /* Focus */
+    .item-card a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 10px; }
   </style>
 </head>
 <body>
@@ -339,7 +149,7 @@
       <feComposite in="threshold" in2="SourceGraphic" operator="atop" />
     </filter>
   </svg>
-  
+
   <!-- Background elements -->
   <canvas id="canvas1"></canvas>
   <div class="toggle-container">
@@ -347,7 +157,7 @@
       <div class="toggle-thumb"></div>
     </div>
   </div>
-  
+
   <!-- Website Content -->
   <div id="content">
     <h1>✌️Hi, this is Phanos</h1>
@@ -364,30 +174,43 @@
       <a href="https://medium.com/@hadjikyriakou.phanos" target="_blank">blog</a>
     </p>
     <br>
-    <p style="display: flex; justify-content: center; gap: 20px;">
+
+    <!-- Three independent toggles -->
+    <p style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
       <button id="projects-toggle-button" class="btn cube">
         <div class="bg-top"><div class="bg-inner"></div></div>
         <div class="bg"><div class="bg-inner"></div></div>
         <div class="bg-right"><div class="bg-inner"></div></div>
-        <div class="text">See projects</div>
+        <div class="text">Projects</div>
       </button>
-      <button id="writings-toggle-button" class="btn cube">
+
+      <button id="articles-toggle-button" class="btn cube">
         <div class="bg-top"><div class="bg-inner"></div></div>
         <div class="bg"><div class="bg-inner"></div></div>
         <div class="bg-right"><div class="bg-inner"></div></div>
-        <div class="text">Writings & Podcasts</div>
+        <div class="text">Writting</div>
+      </button>
+
+      <button id="podcasts-toggle-button" class="btn cube">
+        <div class="bg-top"><div class="bg-inner"></div></div>
+        <div class="bg"><div class="bg-inner"></div></div>
+        <div class="bg-right"><div class="bg-inner"></div></div>
+        <div class="text">Podcasts</div>
       </button>
     </p>
+
+    <!-- Projects -->
     <div id="projects-content" style="margin-top: 20px; display: none;"></div>
-    <div id="writings-content" style="margin-top: 20px; display: none;">
+
+    <!-- Articles -->
+    <div id="articles-content" class="section-wrap" style="display: none;">
       <div style="font-size: 1.2em; line-height: 1.6; text-align: left; max-width: 800px; margin: 0 auto;">
-        <!-- Articles Section -->
-        <div style="margin-bottom: 40px;">
-          <h2 style="font-size: 1.5em; margin-bottom: 20px; display: flex; align-items: center; color: #333;">
-            <span style="margin-right: 15px; font-size: 1.2em;">📝</span>
-            Articles
+        <div style="margin-bottom: 16px;">
+          <h2 style="font-size: 1.5em; margin-bottom: 16px; display: flex; align-items: center; color: #333;">
+            <span style="margin-right: 12px; font-size: 1.2em;">📝</span> Articles & Essays
           </h2>
-          <ul>
+          <!-- Original list preserved exactly (content source) -->
+          <ul id="articles-source" style="display:block; margin:0; padding:0 0 8px 0; list-style:none;">
             <li style="margin-bottom: 2px; font-size: 0.85em; padding-left: 35px; display: flex; align-items: center; gap: 2px;">
               <a href="https://www.linkedin.com/pulse/ai-agents-data-revolution-2025-phanos-hadjikyriakou-6uv2c/?trackingId=iz4QSQ8%2BRQSVU48%2BOMg8UQ%3D%3D" target="_blank">- AI Agents and Data: The Revolution of 2025 (LinkedIn)</a>
             </li>
@@ -440,14 +263,21 @@
               <a href="https://www.longfinance.net/programmes/sustainable-futures/london-accord/reports/climate-risk-analysis-space-remote-sensing-machine-learning-and-future-measuring-climate-related-risk/" target="_blank">- Climate Risk Analysis: Space, Remote Sensing, and Machine Learning (London Accord)</a>
             </li>
           </ul>
+
+          <div id="articles-grid" class="grid" aria-live="polite"></div>
         </div>
-        <!-- Podcasts Section -->
-        <div style="margin-bottom: 40px;">
-          <h2 style="font-size: 1.5em; margin-bottom: 20px; display: flex; align-items: center; color: #333;">
-            <span style="margin-right: 15px; font-size: 1.2em;">🎙️</span>
-            Podcasts
+      </div>
+    </div>
+
+    <!-- Podcasts -->
+    <div id="podcasts-content" class="section-wrap" style="display: none;">
+      <div style="font-size: 1.2em; line-height: 1.6; text-align: left; max-width: 800px; margin: 0 auto;">
+        <div style="margin-bottom: 16px;">
+          <h2 style="font-size: 1.5em; margin-bottom: 16px; display: flex; align-items: center; color: #333;">
+            <span style="margin-right: 12px; font-size: 1.2em;">🎙️</span> Podcasts
           </h2>
-          <ul>
+          <!-- Original list preserved exactly (content source) -->
+          <ul id="podcasts-source" style="display:block; margin:0; padding:0 0 8px 0; list-style:none;">
             <li style="margin-bottom: 2px; font-size: 0.85em; padding-left: 35px; display: flex; align-items: center; gap: 2px;">
               <a href="https://open.spotify.com/show/7DIZmQHxsybpkapvWG0Kvo?si=8dac3a0d307340e5" target="_blank">- Load Bearing - A podcast about product data in AEC (Spotify)</a>
             </li>
@@ -470,24 +300,32 @@
               <a href="https://constructive-voices.com/episode-46-what-is-the-post-cop27-roadmap-for-the-built-environment/" target="_blank">- Post-COP27 Roadmap for the Built Environment (Constructive Voices)</a>
             </li>
           </ul>
+
+          <div id="podcasts-grid" class="grid" aria-live="polite"></div>
         </div>
       </div>
     </div>
   </div>
-  
+
+
   <!-- Website Interaction Script -->
-  <script>
+<script>
     document.addEventListener("DOMContentLoaded", function() {
       const projectsButton = document.getElementById("projects-toggle-button");
       const projectsContent = document.getElementById("projects-content");
-      const writingsButton = document.getElementById("writings-toggle-button");
-      const writingsContent = document.getElementById("writings-content");
-      
+
+      const articlesButton = document.getElementById("articles-toggle-button");
+      const articlesContent = document.getElementById("articles-content");
+
+      const podcastsButton = document.getElementById("podcasts-toggle-button");
+      const podcastsContent = document.getElementById("podcasts-content");
+
       // Set initial button texts
-      projectsButton.querySelector(".text").textContent = "See projects";
-      writingsButton.querySelector(".text").textContent = "Writings & Podcasts";
-      
-      // Project HTML content
+      projectsButton.querySelector(".text").textContent = "Projects";
+      articlesButton.querySelector(".text").textContent = "Writting";
+      podcastsButton.querySelector(".text").textContent = "Podcasts";
+
+      // Project HTML content (kept exactly as in original)
       const projectHTML = `
         <div class="card">
           <img src="imgs/2050materials.png" alt="2050Materials" class="card__image">
@@ -609,38 +447,108 @@
             </div>
           </div>
         </div>
-      `;
-      
+      `;      
+
+      // Helper to hide all sections
+      function hideAllSections() {
+        projectsContent.style.display = "none";
+        projectsContent.innerHTML = "";
+        projectsButton.querySelector(".text").textContent = "Projects";
+
+        articlesContent.style.display = "none";
+        articlesButton.querySelector(".text").textContent = "Writting";
+
+        podcastsContent.style.display = "none";
+        podcastsButton.querySelector(".text").textContent = "Podcasts";
+      }
+
+      // Unified toggle function
+      function toggleSection(button, content, showCallback, labelShow, labelHide) {
+        const isHidden = content.style.display === "none";
+        hideAllSections(); // close all others first
+        if (isHidden) {
+          content.style.display = showCallback ? showCallback() : "block";
+          button.querySelector(".text").textContent = labelHide;
+        }
+      }
+
+      // Updated click handlers
       projectsButton.addEventListener("click", function() {
-        if (projectsContent.style.display === "none") {
+        const isHidden = projectsContent.style.display === "none";
+        hideAllSections();
+        if (isHidden) {
           projectsContent.style.display = "flex";
-          writingsContent.style.display = "none";
           projectsContent.innerHTML = projectHTML;
-          projectsButton.querySelector(".text").textContent = "Hide projects";
-          writingsButton.querySelector(".text").textContent = "Writings & Podcasts";
-        } else {
-          projectsContent.style.display = "none";
-          projectsContent.innerHTML = "";
-          projectsButton.querySelector(".text").textContent = "See projects";
+          projectsButton.querySelector(".text").textContent = "Hide Projects";
         }
       });
-      
-      writingsButton.addEventListener("click", function() {
-        if (writingsContent.style.display === "none") {
-          writingsContent.style.display = "block";
-          projectsContent.style.display = "none";
-          projectsContent.innerHTML = "";
-          writingsButton.querySelector(".text").textContent = "Hide";
-          projectsButton.querySelector(".text").textContent = "Projects";
-        } else {
-          writingsContent.style.display = "none";
-          writingsButton.querySelector(".text").textContent = "Articles & Podcasts";
+
+      articlesButton.addEventListener("click", function() {
+        const isHidden = articlesContent.style.display === "none";
+        hideAllSections();
+        if (isHidden) {
+          articlesContent.style.display = "block";
+          articlesButton.querySelector(".text").textContent = "Hide Writting";
         }
       });
+
+      podcastsButton.addEventListener("click", function() {
+        const isHidden = podcastsContent.style.display === "none";
+        hideAllSections();
+        if (isHidden) {
+          podcastsContent.style.display = "block";
+          podcastsButton.querySelector(".text").textContent = "Hide Podcasts";
+        }
+      });
+
+      /* ===== Helpers for card rendering (Articles + Podcasts) ===== */
+      const hostMap = new Map([
+        ['linkedin.com','LinkedIn'],
+        ['blog.2050-materials.com','2050 Materials'],
+        ['2050-materials.com','2050 Materials'],
+        ['medium.com','Medium'],
+        ['longfinance.net','London Accord'],
+        ['open.spotify.com','Spotify'],
+        ['rics.org','RICS'],
+        ['biofilico.com','Biofilico'],
+        ['shareyourgreendesign.com','Share Your Green Design'],
+        ['constructive-voices.com','Constructive Voices']
+      ]);
+      const toHost = (url) => { try { return new URL(url).hostname.replace(/^www\./,''); } catch { return ''; } };
+      const inferYear = (href) => { const m = href.match(/(20[1-3][0-9])/); return m ? m[1] : new Date().getFullYear(); };
+
+      function buildCardsFromList(listSelector, gridSelector){
+        const list = document.querySelector(listSelector);
+        const grid = document.querySelector(gridSelector);
+        const items = Array.from(list.querySelectorAll('a')).map(a => {
+          const href = a.getAttribute('href');
+          const host = toHost(href);
+          const pill = hostMap.get(host) || host.split('.').slice(-2).join('.');
+          const rawTitle = a.textContent.trim().replace(/^-+\s*/,''); 
+          return { title: rawTitle, href, host, pill, year: inferYear(href) };
+        });
+        grid.innerHTML = items.map(item => `
+          <article class="item-card">
+            <div class="item-top">
+              <span class="pill">${item.pill || ''}</span>
+              <span class="year">${item.year}</span>
+            </div>
+            <a class="item-title" href="${item.href}" target="_blank" rel="noopener noreferrer">${item.title}</a>
+            <p class="item-host">${item.host}</p>
+            <a class="cta" href="${item.href}" target="_blank" rel="noopener noreferrer" aria-label="Open: ${item.title}">
+              Open <span class="arrow">→</span>
+            </a>
+          </article>
+        `).join('');
+        list.style.display = 'none';
+      }
+
+      buildCardsFromList('#articles-source', '#articles-grid');
+      buildCardsFromList('#podcasts-source', '#podcasts-grid');
     });
   </script>
-  
-  <!-- Background Animation Script -->
+
+  <!-- Background Animation Script (unchanged) -->
   <script>
     let mode = 'almond';
     const count = 50;
@@ -706,12 +614,8 @@
           this.balls.push(new Ball(this));
         }
       }
-      update() {
-        this.balls.forEach(ball => ball.update());
-      }
-      draw(context) {
-        this.balls.forEach(ball => ball.draw(context));
-      }
+      update() { this.balls.forEach(ball => ball.update()); }
+      draw(context) { this.balls.forEach(ball => ball.draw(context)); }
     }
 
     let effect = new Effect(canvas.width, canvas.height);
@@ -735,17 +639,12 @@
       document.body.appendChild(el);
       elements.push(el);
     }
-    function clearItems() {
-      elements.forEach(el => el.remove());
-      elements.length = 0;
-    }
+    function clearItems() { elements.forEach(el => el.remove()); elements.length = 0; }
     function populate(mode) {
       clearItems();
       if (mode === 'almond') {
         canvas.style.display = 'none';
-        for (let i = 0; i < count; i++) {
-          createAlmond();
-        }
+        for (let i = 0; i < count; i++) createAlmond();
       } else {
         canvas.style.display = 'block';
         effect = new Effect(canvas.width, canvas.height);
@@ -757,11 +656,8 @@
       mode = toggle.classList.contains('active') ? 'butter' : 'almond';
       populate(mode);
 
-    if (mode === 'butter') {
-        document.body.classList.add('butter-mode');
-      } else {
-        document.body.classList.remove('butter-mode');
-      }
+      if (mode === 'butter') document.body.classList.add('butter-mode');
+      else document.body.classList.remove('butter-mode');
     });
     populate(mode);
   </script>
