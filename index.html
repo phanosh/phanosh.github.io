@@ -22,6 +22,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      overflow-x: hidden; /* Prevent horizontal scroll from falling items */
     }
     body.butter-mode { color: #F9E400; }
     body.butter-mode a { color: #F9E400; }
@@ -37,6 +38,12 @@
     p { font-size: 1.0em; line-height: 1.8; margin: 1em 0; }
     p a { display: inline-block; margin: 0 10px; text-decoration: underline; border-bottom: none;}
     .no-wrap { white-space: nowrap; }
+
+    /* Typewriter Cursor */
+    .typewriter-text { color: #d4af37; font-weight: bold; }
+    .cursor { display: inline-block; width: 10px; background-color: #333; animation: blink 1s infinite; }
+    body.butter-mode .cursor { background-color: #F9E400; }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
     @media (max-width: 600px) {
       body { max-width: 90%; padding: 10px; }
@@ -97,7 +104,10 @@
       background-image: url('almond.png'); background-size: 18px 18px; background-position: center; background-repeat: no-repeat; transition: all 0.3s ease;
     }
     .toggle-switch.active .toggle-thumb { left: 32px; background-image: url('jar.png'); }
-    .almond { position: absolute; width: 20px; height: 30px; background-image: url('almond.png'); background-size: contain; background-repeat: no-repeat; pointer-events: none; z-index: -1; animation: fall linear infinite; }
+    
+    /* Falling Items (Almonds only) */
+    .falling-item { position: absolute; z-index: -1; animation: fall linear infinite; pointer-events: none; }
+    .almond { width: 20px; height: 30px; background-image: url('almond.png'); background-size: contain; background-repeat: no-repeat; }
     
     /* UPDATED: Removed filter since the new engine draws smooth vectors */
     canvas#canvas1 { position: fixed; top: 0; left: 0; z-index: -1; width: 100%; height: 100%; display: none; }
@@ -164,11 +174,14 @@
   <!-- Website Content -->
   <div id="content">
     <h1>✌️Hi, this is Phanos</h1>
+    <!-- Dynamic Typewriter Area -->
     <p>
-      🧠 I love nut butters and data.<br><br>
+      I am <span id="typewriter" class="typewriter-text"></span><span class="cursor">&nbsp;</span>
+    </p>
+    
+    <p>
       🔭 I founded, built and <a href="https://onceforall.com/once-for-all-group-acquires-2050-materials/" target="_blank">sold</a><a href="https://2050-materials.com/" target="_blank">2050 Materials</a><br>
-      <span class="no-wrap">⛓️ I care a lot about Design | Performance | Human Interaction & Movement </span><br><br>
-      <span class="no-wrap">When not building something, I usually ride bikes and lift weights.</span><br>
+      <span class="no-wrap">⛓️ I care a lot about Design | Performance | Human Interaction</span><br><br>
     </p>
     <p class="social-links">
       <a href="https://github.com/phanosh" target="_blank">github</a> | 
@@ -565,11 +578,47 @@
       buildCardsFromList('#podcasts-source', '#podcasts-grid');
     });
   </script>
+  
+  <!-- Typewriter Script -->
+  <script>
+    const texts = [
+      "a restless Builder",
+      "an Athlete",
+      "an Entrepreneur",
+      "a Data Geek",
+      "a Climate Data expert",
+      "an occasional Writer",
+      "very serious about play",
+      "a Movement advocate"
+    ];
+    let count = 0;
+    let index = 0;
+    let currentText = "";
+    let letter = "";
 
-  <!-- Background Animation Script (Updated for Smooth Nut Butter) -->
+    (function type() {
+        if (count === texts.length) {
+            count = 0;
+        }
+        currentText = texts[count];
+        letter = currentText.slice(0, ++index);
+
+        document.getElementById("typewriter").textContent = letter;
+
+        if (letter.length === currentText.length) {
+            count++;
+            index = 0;
+            setTimeout(type, 2000); // Wait before next word
+        } else {
+            setTimeout(type, 100); // Typing speed
+        }
+    })();
+  </script>
+
+  <!-- Background Animation Script (Almonds only) -->
   <script>
     let mode = 'almond';
-    let almondElements = [];
+    let fallingElements = [];
     const canvas = document.getElementById("canvas1");
     const ctx = canvas.getContext("2d");
     
@@ -612,21 +661,24 @@
       }
     });
 
-    // --- Almond Logic ---
-    function createAlmond() {
+    // --- Falling Logic (Almonds only) ---
+    function createFallingItem() {
       const el = document.createElement('div');
+      el.classList.add('falling-item');
       el.classList.add('almond');
+
       el.style.left = Math.random() * 100 + 'vw';
-      el.style.top = -(Math.random() * 100) + 'vh';
+      el.style.top = -100 + 'px';
       el.style.animationDuration = 5 + Math.random() * 5 + 's';
+      
       document.body.appendChild(el);
-      almondElements.push(el);
+      fallingElements.push(el);
     }
 
     function clearItems() {
-      // Remove almonds
-      almondElements.forEach(el => el.remove()); 
-      almondElements.length = 0;
+      // Remove falling elements
+      fallingElements.forEach(el => el.remove()); 
+      fallingElements.length = 0;
       
       // Clear butter canvas
       ctx.clearRect(0, 0, width, height);
@@ -757,7 +809,8 @@
       clearItems();
       if (newMode === 'almond') {
         canvas.style.display = 'none';
-        for (let i = 0; i < 50; i++) createAlmond();
+        // Create multiple initially
+        for (let i = 0; i < 50; i++) createFallingItem();
       } else {
         canvas.style.display = 'block';
         initButter();
