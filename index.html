@@ -98,7 +98,10 @@
     }
     .toggle-switch.active .toggle-thumb { left: 32px; background-image: url('jar.png'); }
     .almond { position: absolute; width: 20px; height: 30px; background-image: url('almond.png'); background-size: contain; background-repeat: no-repeat; pointer-events: none; z-index: -1; animation: fall linear infinite; }
-    canvas#canvas1 { position: fixed; top: 0; left: 0; z-index: -1; width: 100%; height: 100%; display: none; filter: url(#stickyFilter); }
+    
+    /* UPDATED: Removed filter since the new engine draws smooth vectors */
+    canvas#canvas1 { position: fixed; top: 0; left: 0; z-index: -1; width: 100%; height: 100%; display: none; }
+    
     @keyframes fall { 0% { transform: translateY(-100vh) rotate(0deg); } 100% { transform: translateY(100vh) rotate(360deg); } }
 
     #content { position: relative; z-index: 1; width: 100%; }
@@ -137,7 +140,7 @@
   </style>
 </head>
 <body>
-  <!-- SVG Filter for butter effect -->
+  <!-- SVG Filter kept in DOM but not used by canvas, to ensure no layout shifts/errors if referenced elsewhere -->
   <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
     <filter id="stickyFilter">
       <feGaussianBlur in="SourceGraphic" stdDeviation="25" result="blur"/>
@@ -563,88 +566,53 @@
     });
   </script>
 
-  <!-- Background Animation Script (unchanged) -->
+  <!-- Background Animation Script (Updated for Smooth Nut Butter) -->
   <script>
     let mode = 'almond';
-    const count = 50;
-    const elements = [];
+    let almondElements = [];
     const canvas = document.getElementById("canvas1");
     const ctx = canvas.getContext("2d");
+    
+    // Fluid Simulation Variables
+    let width, height;
+    let points = [];
+    const pointSpacing = 8; 
+    const colors = {
+      base: '#b87a30',      // Deep peanut color
+      highlight: '#d49646', // Oily shine
+      shadow: '#966020'     // Depth
+    };
+
+    class Point {
+      constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.oldY = y;
+        this.vy = 0;
+        // Randomize initial state for organic feel
+        this.y += Math.random() * 20 - 20; 
+      }
+      update() {
+        this.vy += 0.08; // Gravity
+        if (this.vy > 3) this.vy = 3; // Terminal velocity
+        this.y += this.vy;
+      }
+    }
 
     function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
     }
     resizeCanvas();
+    
     window.addEventListener('resize', () => {
       resizeCanvas();
-      populate(mode);
+      if(mode === 'butter') {
+          initButter();
+      }
     });
 
-    ctx.fillStyle = "rgba(87, 43, 11)";
-
-    class Ball {
-      constructor(effect){
-        this.effect = effect;
-        this.radius = Math.random() * 800 + 30;
-        this.x = this.radius * 2 + (Math.random() * (this.effect.width - this.radius * 4));
-        this.y = -this.radius;
-        this.speedX = Math.random() * 0.1 - 0.1;
-        this.speedY = Math.random() * 0.1 + 0.5;
-        this.angle = 0;
-        this.va = Math.random() * 0.1 - 0.05;
-        this.range = Math.random() * 30;
-        this.gravity = Math.random() * 0.005;
-        this.vy = 0;
-      }
-      update(){
-        this.x += this.speedX;
-        this.vy += this.gravity;
-        this.y += this.speedY + this.vy;
-        if (this.x < this.radius || this.x > this.effect.width - this.radius) {
-          this.speedX *= -1;
-        }
-        if (this.y > this.effect.height + this.radius) {
-          this.radius = Math.random() * 800 + 30;
-          this.y = -this.radius;
-          this.vy = 0;
-          this.speedY = Math.random() * 0.5 + 0.2;
-          this.x = this.radius * 2 + (Math.random() * (this.effect.width - this.radius * 4));
-        }
-      }
-      draw(context) {
-        context.beginPath();
-        context.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        context.fill();
-      }
-    }
-
-    class Effect {
-      constructor(width, height) {
-        this.width = width;
-        this.height = height;
-        this.balls = [];
-        this.numberOfBalls = 30;
-        for (let i = 0; i < this.numberOfBalls; i++) {
-          this.balls.push(new Ball(this));
-        }
-      }
-      update() { this.balls.forEach(ball => ball.update()); }
-      draw(context) { this.balls.forEach(ball => ball.draw(context)); }
-    }
-
-    let effect = new Effect(canvas.width, canvas.height);
-
-    function animate() {
-      if (mode === 'butter') {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        effect.update();
-        effect.draw(ctx);
-      }
-      requestAnimationFrame(animate);
-    }
-    animate();
-
+    // --- Almond Logic ---
     function createAlmond() {
       const el = document.createElement('div');
       el.classList.add('almond');
@@ -652,28 +620,178 @@
       el.style.top = -(Math.random() * 100) + 'vh';
       el.style.animationDuration = 5 + Math.random() * 5 + 's';
       document.body.appendChild(el);
-      elements.push(el);
+      almondElements.push(el);
     }
-    function clearItems() { elements.forEach(el => el.remove()); elements.length = 0; }
-    function populate(mode) {
-      clearItems();
-      if (mode === 'almond') {
-        canvas.style.display = 'none';
-        for (let i = 0; i < count; i++) createAlmond();
-      } else {
-        canvas.style.display = 'block';
-        effect = new Effect(canvas.width, canvas.height);
+
+    function clearItems() {
+      // Remove almonds
+      almondElements.forEach(el => el.remove()); 
+      almondElements.length = 0;
+      
+      // Clear butter canvas
+      ctx.clearRect(0, 0, width, height);
+      points = [];
+    }
+
+    // --- Butter Logic ---
+    function initButter() {
+      points = [];
+      const numPoints = Math.ceil(width / pointSpacing) + 2;
+      for (let i = 0; i < numPoints; i++) {
+        points.push(new Point(i * pointSpacing, -50));
+      }
+      triggerRandomDrips(5);
+    }
+
+    function triggerRandomDrips(count) {
+      if(points.length === 0) return;
+      for(let i=0; i<count; i++) {
+        const index = Math.floor(Math.random() * points.length);
+        const intensity = Math.random() * 8 + 5;
+        const spread = 10;
+        for(let j = -spread; j <= spread; j++) {
+          if(points[index+j]) {
+            const force = intensity * (1 - Math.abs(j)/spread);
+            points[index+j].vy += force;
+          }
+        }
       }
     }
+
+    function solveFluidConstraints() {
+      const passes = 6; 
+      for (let p = 0; p < passes; p++) {
+        for (let i = 0; i < points.length; i++) {
+          const prev = points[i - 1];
+          const next = points[i + 1];
+          const curr = points[i];
+
+          if (prev) {
+            const delta = curr.y - prev.y;
+            const transfer = delta * 0.1; 
+            curr.y -= transfer;
+            prev.y += transfer;
+            
+            const vDelta = curr.vy - prev.vy;
+            curr.vy -= vDelta * 0.05;
+            prev.vy += vDelta * 0.05;
+          }
+          if (next) {
+            const delta = curr.y - next.y;
+            const transfer = delta * 0.1;
+            curr.y -= transfer;
+            next.y += transfer;
+
+            const vDelta = curr.vy - next.vy;
+            curr.vy -= vDelta * 0.05;
+            next.vy += vDelta * 0.05;
+          }
+        }
+      }
+    }
+
+    function drawButter() {
+      ctx.clearRect(0, 0, width, height);
+      
+      // 1. Base (Shadow)
+      ctx.fillStyle = colors.base;
+      ctx.beginPath();
+      ctx.moveTo(points[0].x, 0);
+      for (let i = 0; i < points.length - 1; i++) {
+        const p0 = points[i];
+        const p1 = points[i + 1];
+        const midX = (p0.x + p1.x) / 2;
+        const midY = (p0.y + p1.y) / 2;
+        ctx.quadraticCurveTo(p0.x, p0.y, midX, midY);
+      }
+      ctx.lineTo(width, 0);
+      ctx.lineTo(0, 0);
+      ctx.fill();
+
+      // 2. Highlight
+      ctx.fillStyle = colors.highlight;
+      ctx.beginPath();
+      ctx.moveTo(points[0].x, 0);
+      for (let i = 0; i < points.length - 1; i++) {
+        const p0 = points[i];
+        const p1 = points[i + 1];
+        const offset = 15; 
+        const midX = (p0.x + p1.x) / 2;
+        const midY = (p0.y + p1.y) / 2;
+        ctx.quadraticCurveTo(p0.x, p0.y - offset, midX, midY - offset);
+      }
+      ctx.lineTo(width, 0);
+      ctx.lineTo(0, 0);
+      ctx.fill();
+
+      // 3. Rim (Base color again)
+      ctx.fillStyle = colors.base;
+      ctx.beginPath();
+      ctx.moveTo(points[0].x, 0);
+      for (let i = 0; i < points.length - 1; i++) {
+        const p0 = points[i];
+        const p1 = points[i + 1];
+        const offset = 5; 
+        const midX = (p0.x + p1.x) / 2;
+        const midY = (p0.y + p1.y) / 2;
+        ctx.quadraticCurveTo(p0.x, p0.y - offset, midX, midY - offset);
+      }
+      ctx.lineTo(width, 0);
+      ctx.lineTo(0, 0);
+      ctx.fill();
+    }
+
+    // --- Main Loop & Control ---
+    function animate() {
+      if (mode === 'butter') {
+        points.forEach(p => p.update());
+        if(Math.random() < 0.02) triggerRandomDrips(1);
+        solveFluidConstraints();
+        drawButter();
+      }
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    function populate(newMode) {
+      clearItems();
+      if (newMode === 'almond') {
+        canvas.style.display = 'none';
+        for (let i = 0; i < 50; i++) createAlmond();
+      } else {
+        canvas.style.display = 'block';
+        initButter();
+      }
+    }
+
+    // Mouse interaction for butter
+    window.addEventListener('pointerdown', (e) => {
+        if(mode !== 'butter') return;
+        const x = e.clientX;
+        const index = Math.floor(x / pointSpacing);
+        if(points[index]) {
+            const spread = 25;
+            for(let j = -spread; j <= spread; j++) {
+                if(points[index+j]) {
+                    const force = 15 * (1 - Math.abs(j)/spread);
+                    points[index+j].vy += force;
+                }
+            }
+        }
+    });
+
     const toggle = document.getElementById('modeToggle');
     toggle.addEventListener('click', () => {
       toggle.classList.toggle('active');
       mode = toggle.classList.contains('active') ? 'butter' : 'almond';
-      populate(mode);
-
+      
       if (mode === 'butter') document.body.classList.add('butter-mode');
       else document.body.classList.remove('butter-mode');
+      
+      populate(mode);
     });
+    
+    // Initial load
     populate(mode);
   </script>
 </body>
