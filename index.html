@@ -301,7 +301,7 @@
         var target = item.type === 'local' ? '_self' : '_blank';
         var rel    = item.type === 'local' ? '' : ' rel="noopener noreferrer"';
         var year   = item.date ? String(item.date).slice(0, 4) : '';
-        var source = item.type === 'local' ? 'phanosh.com' : (item.source || '');
+        var source = item.type === 'local' ? 'phanosha.com' : (item.source || '');
         var desc   = item.desc  ? '<span class="i-desc">' + item.desc + '</span>' : '';
         return '<li><a class="item" href="' + href + '" target="' + target + '"' + rel + '>' +
           '<span class="i-left"><span class="i-name">' + item.title + '</span>' + desc + '</span>' +
