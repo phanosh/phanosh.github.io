@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Post — Phanos Ha</title>
+  <link rel="icon" href="favicon.png" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      font-family: "Roboto", sans-serif;
+      color: #333;
+      background-color: #f8f8f8;
+      margin: 0;
+      padding: 0;
+    }
+
+    .page-shell {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 48px 24px 96px;
+    }
+
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: "Roboto Mono", monospace;
+      font-size: 0.85rem;
+      color: #888;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+      margin-bottom: 48px;
+    }
+    .back:hover { color: #F9E400; border-bottom-color: #F9E400; }
+
+    #post-content h1 {
+      font-family: "Roboto Mono", monospace;
+      font-size: 1.8rem;
+      font-weight: 700;
+      line-height: 1.25;
+      margin: 0 0 12px 0;
+      color: #111;
+    }
+
+    .post-meta {
+      font-family: "Roboto Mono", monospace;
+      font-size: 0.78rem;
+      color: #999;
+      margin-bottom: 40px;
+      border-bottom: 1px solid #e8e8e8;
+      padding-bottom: 24px;
+    }
+
+    #post-content h2 {
+      font-family: "Roboto Mono", monospace;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin: 2.5em 0 0.75em;
+      color: #111;
+    }
+
+    #post-content h3 {
+      font-family: "Roboto Mono", monospace;
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin: 2em 0 0.5em;
+      color: #333;
+    }
+
+    #post-content p {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      margin: 0 0 1.4em;
+      color: #333;
+    }
+
+    #post-content a {
+      color: #333;
+      text-decoration: none;
+      border-bottom: 1px solid #d4af37;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    #post-content a:hover { color: #d4af37; }
+
+    #post-content blockquote {
+      border-left: 3px solid #F9E400;
+      margin: 1.5em 0;
+      padding: 0.5em 1.25em;
+      color: #555;
+      font-style: italic;
+    }
+
+    #post-content code {
+      font-family: "Roboto Mono", monospace;
+      font-size: 0.88em;
+      background: #f0f0f0;
+      padding: 0.15em 0.4em;
+      border-radius: 4px;
+    }
+
+    #post-content pre {
+      background: #f0f0f0;
+      border-radius: 8px;
+      padding: 1.25em;
+      overflow-x: auto;
+    }
+    #post-content pre code { background: none; padding: 0; font-size: 0.9em; }
+
+    #post-content ul, #post-content ol {
+      padding-left: 1.5em;
+      margin: 0 0 1.4em;
+    }
+    #post-content li { font-size: 1.05rem; line-height: 1.85; margin-bottom: 0.3em; }
+
+    #post-content hr { border: none; border-top: 1px solid #e8e8e8; margin: 2.5em 0; }
+
+    .status {
+      font-family: "Roboto Mono", monospace;
+      color: #bbb;
+      font-size: 0.9rem;
+    }
+
+    ::selection { background: #F9E400; color: #7C00FE; }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <a href="/" class="back">← phanos ha</a>
+    <div id="post-content"><p class="status">Loading…</p></div>
+  </div>
+
+  <script>
+    const slug = new URLSearchParams(window.location.search).get('slug');
+    const container = document.getElementById('post-content');
+
+    function showError() {
+      container.innerHTML = '<p class="status">Post not found.</p>';
+    }
+
+    if (!slug) {
+      showError();
+    } else {
+      fetch('posts/' + slug + '.md')
+        .then(function(r) {
+          if (!r.ok) throw new Error('not found');
+          return r.text();
+        })
+        .then(function(md) {
+          container.innerHTML = marked.parse(md);
+
+          var h1 = container.querySelector('h1');
+          if (h1) document.title = h1.textContent + ' — Phanos Ha';
+
+          // Try to get date from articles.json — optional, degrades gracefully
+          fetch('articles.json')
+            .then(function(r) { return r.json(); })
+            .then(function(articles) {
+              var article = articles.find(function(a) { return a.slug === slug; });
+              if (!article || !article.date) return;
+              var date = new Date(article.date).toLocaleDateString('en-GB', {
+                year: 'numeric', month: 'long', day: 'numeric'
+              });
+              var h1El = container.querySelector('h1');
+              if (!h1El) return;
+              var meta = document.createElement('p');
+              meta.className = 'post-meta';
+              meta.textContent = date;
+              h1El.insertAdjacentElement('afterend', meta);
+            })
+            .catch(function() {});
+        })
+        .catch(showError);
+    }
+  </script>
+</body>
+</html>
