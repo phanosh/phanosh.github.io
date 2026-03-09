@@ -82,7 +82,7 @@
     /* ── Item rows ────────────────────────────────── */
     ul.items { list-style: none; }
 
-    a.item {
+    a.item, span.item {
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
@@ -92,7 +92,7 @@
       text-decoration: none;
       color: inherit;
     }
-    ul.items li:first-child a.item { border-top: 1px solid #efefef; }
+    ul.items li:first-child .item { border-top: 1px solid #efefef; }
 
     .i-left { flex: 1; min-width: 0; }
 
@@ -132,11 +132,12 @@
     .i-source { color: #888; }
 
     a.item:hover .i-name { text-decoration-color: #F9E400; }
+    span.item .i-name { text-decoration-line: none; }
 
     /* ── Mobile ───────────────────────────────────── */
     @media (max-width: 540px) {
       .wrap { padding: 48px 20px 80px; }
-      a.item { gap: 12px; }
+      a.item, span.item { gap: 12px; }
       .i-desc { display: none; }
     }
   </style>
@@ -175,10 +176,10 @@
           </span>
           <span class="i-right"><span class="i-source">ai</span></span>
         </a></li>
-        <li><span class="item" style="cursor:default;border-bottom:1px solid #efefef;">
+        <li><span class="item" style="cursor:default;">
           <span class="i-left">
-            <span class="i-name">Sales Agent <span style="font-size:0.7rem;color:#bbb;font-weight:400;">— public repo coming soon</span></span>
-            <span class="i-desc">AI sales pipeline built with Claude Code and a JSON file</span>
+            <span class="i-name">enterprise sales agent</span>
+            <span class="i-desc">Claude Code and a JSON file — public repo coming soon</span>
           </span>
           <span class="i-right"><span class="i-source">ai</span></span>
         </span></li>
@@ -278,7 +279,7 @@
 
   <script>
     const ARTICLES = [
-      { title: "I Built a Sales Agent With Claude Code and a JSON File", date: "2026-03-04", slug: "sales-agent", type: "local", desc: " pipeline.json and four slash commands." },
+      { title: "Context management for sales agents", date: "2026-03-04", slug: "sales-agent", type: "local", desc: " pipeline.json and four slash commands." },
       { title: "AI Agents and Data: The Revolution of 2025", date: "2025", url: "https://www.linkedin.com/pulse/ai-agents-data-revolution-2025-phanos-hadjikyriakou-6uv2c/?trackingId=iz4QSQ8%2BRQSVU48%2BOMg8UQ%3D%3D", type: "external", source: "LinkedIn" },
       { title: "Climate Data Enrichment in AEC: Mapping Carbon to Project Data", date: "2024", url: "https://www.linkedin.com/pulse/climate-data-enrichment-aec-mapping-carbon-project-hadjikyriakou-cyade/?trackingId=iz4QSQ8%2BRQSVU48%2BOMg8UQ%3D%3D", type: "external", source: "LinkedIn" },
       { title: "Fit for Purpose: A Guide to Using Embodied Carbon Data", date: "2024", url: "https://www.linkedin.com/pulse/fit-purpose-guide-using-embodied-carbon-data-phanos-hadjikyriakou-dkwec/?trackingId=N%2BKjT2RdRFOtaXx9vghyJg%3D%3D", type: "external", source: "LinkedIn" },
