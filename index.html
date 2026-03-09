@@ -7,138 +7,167 @@
   <link rel="icon" href="favicon.png" type="image/x-icon">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --black: #111111;
+      --grey:  #6b6b6b;
+      --light: #b0b0b0;
+      --rule:  #dddddd;
+      --bg:    #faf9f7;
+    }
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    body {
-      font-family: "Roboto", -apple-system, BlinkMacSystemFont, sans-serif;
-      background: #fafafa;
-      color: #1a1a1a;
-      line-height: 1.6;
+    html {
+      font-size: 17px;
       -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
-    ::selection { background: #F9E400; color: #1a1a1a; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      background: var(--bg);
+      color: var(--black);
+      line-height: 1.6;
+    }
+
+    ::selection { background: var(--black); color: var(--bg); }
 
     .wrap {
-      max-width: 680px;
+      max-width: 780px;
       margin: 0 auto;
-      padding: 80px 32px 120px;
+      padding: clamp(48px, 10vh, 140px) clamp(24px, 6vw, 80px) clamp(80px, 15vh, 200px);
     }
 
+    /* ── Animations ───────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    header                 { animation: fadeUp 0.6s ease-out 0s    both; }
+    section:nth-of-type(1) { animation: fadeUp 0.6s ease-out 0.10s both; }
+    section:nth-of-type(2) { animation: fadeUp 0.6s ease-out 0.18s both; }
+    section:nth-of-type(3) { animation: fadeUp 0.6s ease-out 0.26s both; }
+    footer                 { animation: fadeUp 0.6s ease-out 0.34s both; }
+
     /* ── Header ───────────────────────────────────── */
-    header { margin-bottom: 64px; }
+    header { margin-bottom: 72px; }
 
     .name {
-      font-family: "Roboto Mono", monospace;
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: #1a1a1a;
-      margin-bottom: 16px;
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(2.8rem, 6vw, 4.2rem);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--black);
+      margin-bottom: 0.6em;
     }
 
     .bio {
       font-size: 0.95rem;
-      color: #555;
-      line-height: 1.8;
-      max-width: 500px;
-      margin-bottom: 20px;
+      font-weight: 300;
+      color: var(--grey);
+      line-height: 1.7;
+      max-width: 480px;
+      margin-bottom: 1.6em;
     }
 
     .bio a {
-      color: #555;
-      text-decoration: underline;
-      text-decoration-color: #ddd;
-      text-underline-offset: 2px;
-      transition: text-decoration-color 0.15s;
+      color: var(--black);
+      text-decoration: none;
+      border-bottom: 1px solid var(--light);
+      transition: border-color 0.2s;
     }
-    .bio a:hover { text-decoration-color: #F9E400; }
+    .bio a:hover { border-color: var(--black); }
 
-    nav { display: flex; gap: 20px; }
+    nav { display: flex; gap: 1.5em; }
 
     nav a {
-      font-family: "Roboto Mono", monospace;
-      font-size: 0.75rem;
-      color: #999;
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--light);
       text-decoration: none;
-      transition: color 0.15s;
+      transition: color 0.2s;
     }
-    nav a:hover { color: #1a1a1a; }
+    nav a:hover { color: var(--black); }
 
     /* ── Sections ─────────────────────────────────── */
     .section { margin-bottom: 56px; }
 
     .section-label {
-      font-family: "Roboto Mono", monospace;
-      font-size: 0.62rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: #aaa;
-      margin-bottom: 2px;
+      color: var(--light);
+      margin-bottom: 1.8em;
+      padding-bottom: 0.8em;
+      border-bottom: 1px solid var(--rule);
     }
 
     /* ── Item rows ────────────────────────────────── */
     ul.items { list-style: none; }
 
     a.item, span.item {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 24px;
-      padding: 10px 0;
-      border-bottom: 1px solid #efefef;
+      display: block;
+      padding: 1.1em 0;
+      border-bottom: 1px solid var(--rule);
       text-decoration: none;
       color: inherit;
     }
-    ul.items li:first-child .item { border-top: 1px solid #efefef; }
-
-    .i-left { flex: 1; min-width: 0; }
+    ul.items li:first-child .item { padding-top: 0; }
+    ul.items li:last-child .item  { border-bottom: none; }
 
     .i-name {
-      font-size: 0.9rem;
-      font-weight: 500;
-      color: #1a1a1a;
-      line-height: 1.4;
-      text-decoration-line: underline;
-      text-decoration-color: transparent;
-      text-underline-offset: 3px;
-      transition: text-decoration-color 0.15s;
+      display: block;
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      line-height: 1.3;
+      color: var(--black);
+      transition: color 0.2s;
     }
 
     .i-desc {
-      font-size: 0.8rem;
-      color: #999;
-      margin-top: 2px;
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: var(--grey);
+      margin-top: 0.25em;
       line-height: 1.4;
     }
 
-    .i-right {
-      text-align: right;
-      flex-shrink: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 2px;
+    .i-tags, .i-meta {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 400;
+      color: var(--light);
+      letter-spacing: 0.04em;
+      margin-top: 0.3em;
     }
 
-    .i-date, .i-source {
-      font-family: "Roboto Mono", monospace;
-      font-size: 0.7rem;
-      white-space: nowrap;
-    }
-    .i-date  { color: #aaa; }
-    .i-source { color: #888; }
+    a.item:hover .i-name { color: var(--grey); }
 
-    a.item:hover .i-name { text-decoration-color: #F9E400; }
-    span.item .i-name { text-decoration-line: none; }
+    /* ── Footer ───────────────────────────────────── */
+    footer {
+      margin-top: clamp(80px, 12vh, 160px);
+      padding-top: 1.5em;
+      border-top: 1px solid var(--rule);
+      font-size: 0.75rem;
+      color: var(--light);
+      letter-spacing: 0.02em;
+    }
 
     /* ── Mobile ───────────────────────────────────── */
-    @media (max-width: 540px) {
-      .wrap { padding: 48px 20px 80px; }
-      a.item, span.item { gap: 12px; }
-      .i-desc { display: none; }
+    @media (max-width: 520px) {
+      html { font-size: 16px; }
+      .bio { max-width: 100%; }
     }
   </style>
 </head>
@@ -146,9 +175,9 @@
   <div class="wrap">
 
     <header>
-      <p class="name">Phanos Hadjikyriakou</p>
+      <h1 class="name">Phanos<br>Hadjikyriakou</h1>
       <p class="bio">
-        Builder and tinkerer. Previously founded and sold <a href="https://2050-materials.com/" target="_blank" rel="noopener">2050 Materials</a>. Now leading WLCA at <a href="https://onceforall.com" target="_blank" rel="noopener">Once For All</a>.
+        Builder and tinkerer. Previously founded and sold <a href="https://2050-materials.com/" target="_blank" rel="noopener">2050 Materials</a>. Now leading WLCA at <a href="https://onceforall.com" target="_blank" rel="noopener">Once For All</a>. <br>
         I love deep work but hate what sitting for 10 hours a day does to your body. Building something about that, more soon.
       </p>
       <nav>
@@ -163,102 +192,74 @@
       <p class="section-label">Projects</p>
       <ul class="items">
         <li><a class="item" href="https://2050-materials.com" target="_blank" rel="noopener">
-          <span class="i-left">
-            <span class="i-name">2050 Materials</span>
-            <span class="i-desc">AEC data platform — founded and sold</span>
-          </span>
-          <span class="i-right"><span class="i-source">climate / data</span></span>
+          <span class="i-name">2050 Materials</span>
+          <span class="i-desc">AEC data platform — founded and sold</span>
+          <span class="i-tags">climate · data</span>
         </a></li>
         <li><a class="item" href="https://host-html.com" target="_blank" rel="noopener">
-          <span class="i-left">
-            <span class="i-name">host-html</span>
-            <span class="i-desc">publish any HTML as a live link — one command, zero config</span>
-          </span>
-          <span class="i-right"><span class="i-source">ai</span></span>
+          <span class="i-name">host-html</span>
+          <span class="i-desc">publish any HTML as a live link — one command, zero config</span>
+          <span class="i-tags">ai</span>
         </a></li>
         <li><span class="item" style="cursor:default;">
-          <span class="i-left">
-            <span class="i-name">enterprise sales agent</span>
-            <span class="i-desc">Claude Code and a JSON file — public repo coming soon</span>
-          </span>
-          <span class="i-right"><span class="i-source">ai</span></span>
+          <span class="i-name">enterprise sales agent</span>
+          <span class="i-desc">AI sales pipeline built with Claude Code and a JSON file — public repo coming soon</span>
+          <span class="i-tags">ai</span>
         </span></li>
         <li><a class="item" href="https://github.com/phanosh/mbox-to-json" target="_blank" rel="noopener">
-          <span class="i-left">
-            <span class="i-name">Email Context Graph</span>
-            <span class="i-desc">mbox → JSON for AI agents</span>
-          </span>
-          <span class="i-right"><span class="i-source">dev</span></span>
+          <span class="i-name">Email Context Graph</span>
+          <span class="i-desc">mbox → JSON for AI agents</span>
+          <span class="i-tags">dev</span>
         </a></li>
         <li><a class="item" href="https://run.phanosha.com" target="_blank" rel="noopener">
-          <span class="i-left">
-            <span class="i-name">10k Running Plan</span>
-            <span class="i-desc">sub-40 training app</span>
-          </span>
-          <span class="i-right"><span class="i-source">health</span></span>
+          <span class="i-name">10k Running Plan</span>
+          <span class="i-desc">sub-40 training app</span>
+          <span class="i-tags">health</span>
         </a></li>
         <li><a class="item" href="https://phanosha.com/maybe-this-sticks/" target="_blank" rel="noopener">
-          <span class="i-left">
-            <span class="i-name">A Pause to Think</span>
-            <span class="i-desc">AEC decarbonization reports in mnemonic form</span>
-          </span>
-          <span class="i-right"><span class="i-source">climate</span></span>
+          <span class="i-name">A Pause to Think</span>
+          <span class="i-desc">AEC decarbonization reports in mnemonic form</span>
+          <span class="i-tags">climate</span>
         </a></li>
         <li><a class="item" href="https://phanosha.com/climate-kpis/" target="_blank" rel="noopener">
-          <span class="i-left">
-            <span class="i-name">Climate KPIs</span>
-            <span class="i-desc">find the right metric, not the convenient one</span>
-          </span>
-          <span class="i-right"><span class="i-source">climate / data</span></span>
+          <span class="i-name">Climate KPIs</span>
+          <span class="i-desc">find the right metric, not the convenient one</span>
+          <span class="i-tags">climate · data</span>
         </a></li>
         <li><a class="item" href="https://phanosha.com/gainsculator/" target="_blank" rel="noopener">
-          <span class="i-left">
-            <span class="i-name">Strength Benchmarking</span>
-            <span class="i-desc">benchmark your lifts against global data</span>
-          </span>
-          <span class="i-right"><span class="i-source">health</span></span>
+          <span class="i-name">Strength Benchmarking</span>
+          <span class="i-desc">benchmark your lifts against global data</span>
+          <span class="i-tags">health</span>
         </a></li>
         <li><a class="item" href="https://shoulditake.com/" target="_blank" rel="noopener">
-          <span class="i-left">
-            <span class="i-name">Should I Take?</span>
-            <span class="i-desc">evidence-based supplement research</span>
-          </span>
-          <span class="i-right"><span class="i-source">health</span></span>
+          <span class="i-name">Should I Take?</span>
+          <span class="i-desc">evidence-based supplement research</span>
+          <span class="i-tags">health</span>
         </a></li>
         <li><a class="item" href="https://climatetargetstoolapp-fvi2zffbgfxegq7ydtdgjz.streamlit.app/" target="_blank" rel="noopener">
-          <span class="i-left">
-            <span class="i-name">Reverse LCA</span>
-            <span class="i-desc">break carbon targets into concrete actions</span>
-          </span>
-          <span class="i-right"><span class="i-source">climate</span></span>
+          <span class="i-name">Reverse LCA</span>
+          <span class="i-desc">break carbon targets into concrete actions</span>
+          <span class="i-tags">climate</span>
         </a></li>
         <li><a class="item" href="https://phanosha.com/logo-color-change/" target="_blank" rel="noopener">
-          <span class="i-left">
-            <span class="i-name">Logo Color Change</span>
-            <span class="i-desc">drag-and-drop any logo to white</span>
-          </span>
-          <span class="i-right"><span class="i-source">tool</span></span>
+          <span class="i-name">Logo Color Change</span>
+          <span class="i-desc">drag-and-drop any logo to white</span>
+          <span class="i-tags">tool</span>
         </a></li>
         <li><a class="item" href="https://chatgpt.com/g/g-5ExaYznZ4-epd-analyzer" target="_blank" rel="noopener">
-          <span class="i-left">
-            <span class="i-name">EPD Analyzer</span>
-            <span class="i-desc">GPT for environmental product declarations — 600+ chats</span>
-          </span>
-          <span class="i-right"><span class="i-source">ai / climate</span></span>
+          <span class="i-name">EPD Analyzer</span>
+          <span class="i-desc">GPT for environmental product declarations — 600+ chats</span>
+          <span class="i-tags">ai · climate</span>
         </a></li>
         <li><a class="item" href="https://specvetter.com/" target="_blank" rel="noopener">
-          <span class="i-left">
-            <span class="i-name">SpecVetter</span>
-            <span class="i-desc">spec-to-catalogue matching for suppliers</span>
-          </span>
-          <span class="i-right"><span class="i-source">ai / aec</span></span>
+          <span class="i-name">SpecVetter</span>
+          <span class="i-desc">spec-to-catalogue matching for suppliers</span>
+          <span class="i-tags">ai · aec</span>
         </a></li>
         <li><a class="item" href="https://epdradar.com/" target="_blank" rel="noopener">
-          <span class="i-left">
-            <span class="i-name">EPDRadar</span>
-            <span class="i-desc">community rating of EPD trustworthiness</span>
-          </span>
-          <span class="i-right"><span class="i-source">climate</span></span>
+          <span class="i-name">EPDRadar</span>
+          <span class="i-desc">community rating of EPD trustworthiness</span>
+          <span class="i-tags">climate</span>
         </a></li>
       </ul>
     </section>
@@ -275,11 +276,13 @@
       <ul class="items" id="podcasts-list"></ul>
     </section>
 
+    <footer>Zürich, 2025</footer>
+
   </div>
 
   <script>
     const ARTICLES = [
-      { title: "Context management for sales agents", date: "2026-03-04", slug: "sales-agent", type: "local", desc: " pipeline.json and four slash commands." },
+      { title: "Context management for sales agents", date: "2026-03-04", slug: "sales-agent", type: "local", desc: "pipeline.json and four slash commands." },
       { title: "AI Agents and Data: The Revolution of 2025", date: "2025", url: "https://www.linkedin.com/pulse/ai-agents-data-revolution-2025-phanos-hadjikyriakou-6uv2c/?trackingId=iz4QSQ8%2BRQSVU48%2BOMg8UQ%3D%3D", type: "external", source: "LinkedIn" },
       { title: "Climate Data Enrichment in AEC: Mapping Carbon to Project Data", date: "2024", url: "https://www.linkedin.com/pulse/climate-data-enrichment-aec-mapping-carbon-project-hadjikyriakou-cyade/?trackingId=iz4QSQ8%2BRQSVU48%2BOMg8UQ%3D%3D", type: "external", source: "LinkedIn" },
       { title: "Fit for Purpose: A Guide to Using Embodied Carbon Data", date: "2024", url: "https://www.linkedin.com/pulse/fit-purpose-guide-using-embodied-carbon-data-phanos-hadjikyriakou-dkwec/?trackingId=N%2BKjT2RdRFOtaXx9vghyJg%3D%3D", type: "external", source: "LinkedIn" },
@@ -317,13 +320,11 @@
         var rel    = item.type === 'local' ? '' : ' rel="noopener noreferrer"';
         var year   = item.date ? String(item.date).slice(0, 4) : '';
         var source = item.type === 'local' ? 'phanosha.com' : (item.source || '');
-        var desc   = item.desc  ? '<span class="i-desc">' + item.desc + '</span>' : '';
+        var meta   = [year, source].filter(Boolean).join(' · ');
+        var desc   = item.desc ? '<span class="i-desc">' + item.desc + '</span>' : '';
         return '<li><a class="item" href="' + href + '" target="' + target + '"' + rel + '>' +
-          '<span class="i-left"><span class="i-name">' + item.title + '</span>' + desc + '</span>' +
-          '<span class="i-right">' +
-            (year   ? '<span class="i-date">'   + year   + '</span>' : '') +
-            (source ? '<span class="i-source">' + source + '</span>' : '') +
-          '</span>' +
+          '<span class="i-name">' + item.title + '</span>' + desc +
+          (meta ? '<span class="i-meta">' + meta + '</span>' : '') +
         '</a></li>';
       }).join('');
     }
